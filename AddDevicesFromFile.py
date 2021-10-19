@@ -10,7 +10,7 @@ class Add_Devices(Script):
         Field_Order=["Input File"]
 
     Input_File = FileVar(
-        descripton="Add the file of Serial Numbers",
+        description="Add the file of Serial Numbers",
         required=True
     )
     Number_Of_Devices= IntegerVar(
