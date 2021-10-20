@@ -10,6 +10,7 @@ class ExchangeDevice(Script):
     NewDevice= ObjectVar(
         description="Enter Name of the new Device",
         model=Device
+        display_field="serial"
 
     )
     Old_Device= ObjectVar(
