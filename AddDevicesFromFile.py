@@ -29,7 +29,7 @@ class Add_Devices(Script):
     
 
     def run(self,data,commit):
-        ListOfSerialNumbers = data["InputFile_Of_SerialNumbers"].read().decode("utf-8").strip("\n")
+        ListOfSerialNumbers = data["InputFile_Of_SerialNumbers"].readlines().decode("utf-8").strip()
         
         for i in range(len(ListOfSerialNumbers)):     
             Create_Device= Device(
