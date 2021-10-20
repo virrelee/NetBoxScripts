@@ -48,7 +48,7 @@ class ExchangeDevice(Script):
         newdevice.device_type.model,
         newdevice.device_role.name,
         newdevice.site.name,
-        newdevice.rack,
+        newdevice.rack.name,
         newdevice.status,
         ]
         output.append(",".join(attrs))
