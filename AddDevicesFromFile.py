@@ -33,7 +33,7 @@ class Add_Devices(Script):
         
         for i in range(len(ListOfSerialNumbers)):     
             Create_Device= Device(
-                device_type=data["TypeOfDevice"],
+                device_type=data["Type_Of_Device"],
                 name="OK",
                 site=Site.objects.get(name="Inventory"),
                 status= DeviceStatusChoices.STATUS_INVENTORY,
