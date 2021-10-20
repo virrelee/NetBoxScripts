@@ -37,7 +37,7 @@ class Add_Devices(Script):
                 name="OK",
                 site=Site.objects.get(name="Inventory"),
                 status= DeviceStatusChoices.STATUS_INVENTORY,
-                service_role=DeviceRole.objects.get(name="Unknown"),
+                device_role=DeviceRole.objects.get(name="Unknown"),
                 serial= ListOfSerialNumbers[i]
                 )
 
