@@ -7,10 +7,8 @@ class ExchangeDevice(Script):
         description= "Copy Data From old Device to New Device"
         field_order=["NewDevice","OldDevice"]
 
-    New_Device= ObjectVar(
+    New_Device= StringVar(
         description="Enter Name of the new Device",
-        model=Device,
-        display_field="asset tag"
 
     )
     Old_Device= ObjectVar(
@@ -21,7 +19,7 @@ class ExchangeDevice(Script):
     def run(self,data,commit):
         
         oldevice=data["Old_Device"]
-        newdevice=data["New_Device"]
+        newdevice=Device.object.get(serial=data["New_Device"])
     #Exctract all data from the old device to the new device    
         oldevicename=oldevice.name
         newdevice.device_type=oldevice.device_type
