@@ -41,5 +41,5 @@ class Add_Devices(Script):
                 serial= ListOfSerialNumbers[i]
                 )
 
-            Create_Device.Save()
+            Create_Device.save()
             self.log_success(f"Created New Device{Create_Device}")
