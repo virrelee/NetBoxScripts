@@ -17,7 +17,7 @@ class Add_Devices(Script):
     
 
     def run(self,data,commit):
-        ListOfSerialNumbers = data["InputFileOfSerialNumbers"].read().encode(encoding="utf-8").strip()
+        ListOfSerialNumbers = data["InputFileOfSerialNumbers"].read().decode("utf-8").strip()
         
         for i in range(len(ListOfSerialNumbers)):     
             Create_Device= Device(
