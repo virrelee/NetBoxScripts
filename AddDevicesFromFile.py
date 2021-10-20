@@ -51,7 +51,7 @@ class Add_Devices(Script):
             "Name,Serial Number,Device Type,Device Role,Status"
         ]
         for serial in ListOfSerialNumbers:
-            Devices = Device.objects.filter(serial=serial)
+            Devices = Device.objects.get(serial=serial)
             attrs =  [
                 Devices.name,
                 Devices.serial,
