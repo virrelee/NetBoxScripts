@@ -1,10 +1,18 @@
-from dcim.models import Device,DeviceType,DeviceRole,Site
+## Creator - Viktor Lindgren
+## Email - viktor.lindgren@cgi.com
+## 
+
+## This Script Will give a new device an old devices properties and put the old device in
+## the inventory.
+
+
+from dcim.models import Device,DeviceRole,Site
 from dcim.choices import DeviceStatusChoices
 from extras.scripts import *
 class ExchangeDevice(Script):
     class Meta:
         name= "Exchange Device         " #set 25 spaces total
-        description= "Copy Data From old Device to New Device"
+        description= "Copy data from old device to new device and put the old device in Inventory"
         field_order=["NewDevice","OldDevice"]
 
     New_Device= StringVar(
