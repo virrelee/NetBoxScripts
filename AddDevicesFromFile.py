@@ -45,3 +45,19 @@ class Add_Devices(Script):
 
             Create_Device.save()
             self.log_success(f"Created New Device with serial-Number {ListOfSerialNumbers[i]}")
+        
+
+        output = [
+            "Name,Serial Number,Device Type,Device Role,Status"
+        ]
+        for Device in Device.objects.filter(site="Inventory"):
+            attrs =  [
+                Device.name,
+                Device.serial,
+                Device.device_type,
+                Device.device_role,
+                Device.Status
+        ]   
+            output.append(",".join(attrs))
+
+        return "\n".join(output)
