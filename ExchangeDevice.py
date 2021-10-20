@@ -4,7 +4,7 @@ from extras.scripts import *
 class ExchangeDevice(Script):
     class metadata:
         name= "Exchange Device"
-        description="Copy Data From old Device to New Device and puts the old device in inventory"
+        description="Copy Data From old Device to New Device"
         field_order=["NewDevice","OldDevice"]
 
     NewDevice= ObjectVar(
