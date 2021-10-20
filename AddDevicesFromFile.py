@@ -5,30 +5,29 @@ from extras.scripts import *
 
 class Add_Devices(Script):
     class Meta:
-        Name= "Add New Devices"
-        description= "adding new Devices to Inventory with Status OK"
+        name= "Add New Devices From File"
+        description= "Adding new Devices to Inventory with Status OK"
         Field_Order=["Input File"]
 
-    Input_File = FileVar(
+    InputFileOfSerialNumbers = FileVar(
         description="Add the file of Serial Numbers",
         required=True
     )
-    Number_Of_Devices= IntegerVar(
-        description="How many Devices do you wish to Create?"
 
-    )
-
+    ListOfSerialNumbers = InputFileOfSerialNumbers.read().encode(encoding="utf-8").strip()
 
     def run(self,data,commit):
-        for i in range(1,Number_Of_Devices +1):
- 
+
+        
+        for i in range(len(ListOfSerialNumbers)):     
             Create_Device= Device(
                 device_type=data,
                 Name="OK",
                 Site=Site.object.get(Name="Inventory"),
                 Status= DeviceStatusChoices.STATUS_INVENTORY,
                 Device_Role=DeviceRole.objects.get(Name="Unknown"),
-                Serial= Input_File.readlines(i)
+                Serial= data["ListOfSerialNumbers"][i]
                 )
+
             Create_Device.Save()
             self.log_success(f"Created New Device{Create_Device}")
