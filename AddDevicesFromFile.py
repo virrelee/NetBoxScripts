@@ -42,4 +42,4 @@ class Add_Devices(Script):
                 )
 
             Create_Device.save()
-            self.log_success(f"Created New Device with serial-Number{ListOfSerialNumbers[i]}")
+            self.log_success(f"Created New Device with serial-Number OK")
