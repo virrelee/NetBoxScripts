@@ -45,8 +45,8 @@ class ExchangeDevice(Script):
         ]
         attrs = [
         newdevice.name,
-        newdevice.device_type,
-        newdevice.device_role,
+        newdevice.device_type.model,
+        newdevice.device_role.name,
         newdevice.site,
         newdevice.rack,
         newdevice.status,
