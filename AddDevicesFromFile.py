@@ -54,7 +54,7 @@ class Add_Devices(Script):
             attrs =  [
                 Devices.name,
                 Devices.serial,
-                Devices.device_type,
+                Devices.device_type.model,
                 Devices.device_role,
                 Devices.status
         ]   
