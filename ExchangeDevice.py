@@ -2,7 +2,7 @@ from dcim.models import Device,DeviceType,DeviceRole,Site
 from dcim.choices import DeviceStatusChoices
 from extras.scripts import *
 class ExchangeDevice(Script):
-    class metadata:
+    class meta:
         name= "Exchange Device"
         description="Copy Data From old Device to New Device"
         field_order=["NewDevice","OldDevice"]
