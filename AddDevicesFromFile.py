@@ -55,7 +55,7 @@ class Add_Devices(Script):
                 Devices.name,
                 Devices.serial,
                 Devices.device_type.model,
-                Devices.device_role,
+                Devices.device_role.name,
                 Devices.status
         ]   
             output.append(",".join(attrs))
