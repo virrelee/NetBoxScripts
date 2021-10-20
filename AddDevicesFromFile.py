@@ -15,7 +15,7 @@ class Add_Devices(Script):
     class Meta:
         name= "Add New Devices From File"
         description= "Adding new Devices to Inventory with Status OK"
-        Field_Order=["InputFile_Of_SerialNumbers","Type_Of_Device"]
+        field_Order=["InputFile_Of_SerialNumbers","Type_Of_Device"]
 
     File_With_SerialNumbers = FileVar(
         description="Add the file that contains all Serial Numbers (.txt,.csv)",
