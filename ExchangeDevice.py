@@ -3,7 +3,7 @@ from dcim.choices import DeviceStatusChoices
 from extras.scripts import *
 class ExchangeDevice(Script):
     class metadata:
-        name="Exchange Device"
+        name= "Exchange Device"
         description="Copy Data From old Device to New Device and puts the old device in inventory"
         field_order=["NewDevice","OldDevice"]
 
