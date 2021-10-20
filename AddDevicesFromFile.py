@@ -17,20 +17,20 @@ class Add_Devices(Script):
         description= "Adding new Devices to Inventory with Status OK"
         Field_Order=["InputFile_Of_SerialNumbers","Type_Of_Device"]
 
-    InputFile_Of_SerialNumbers = FileVar(
-        description="Add the file of Serial Numbers",
+    File_With_SerialNumbers = FileVar(
+        description="Add the file that contains all Serial Numbers (.txt,.csv)",
         required=True
     
     )
     Type_Of_Device= ObjectVar(
-        description = "Choose which Device the serial numbers represent",
+        description = "Choose which DeviceType the serial numbers represent",
         model=DeviceType,
         display_field="model"
     )
     
 
     def run(self,data,commit):
-        ListOfSerialNumbers = data["InputFile_Of_SerialNumbers"].read().decode("utf-8").split()
+        ListOfSerialNumbers = data["File_With_SerialNumbers"].read().decode("utf-8").split()
         
         for i in range(len(ListOfSerialNumbers)):     
             Create_Device= Device(
@@ -46,7 +46,7 @@ class Add_Devices(Script):
             Create_Device.save()
             self.log_success(f"Created New Device with serial-Number {ListOfSerialNumbers[i]}")
         
-
+#Create a CSV-File
         output = [
             "Name,Serial Number,Device Type,Device Role,Status"
         ]
