@@ -29,7 +29,7 @@ class Add_Devices(Script):
     
 
     def run(self,data,commit):
-        ListOfSerialNumbers = data["InputFile_Of_SerialNumbers"].read().decode("utf-8").strip()
+        ListOfSerialNumbers = data["InputFile_Of_SerialNumbers"].read().decode("utf-8").strip("\n")
         
         for i in range(len(ListOfSerialNumbers)):     
             Create_Device= Device(
@@ -38,6 +38,7 @@ class Add_Devices(Script):
                 site=Site.objects.get(name="Inventory"),
                 status= DeviceStatusChoices.STATUS_INVENTORY,
                 device_role=DeviceRole.objects.get(name="Unknown"),
+                #asset_tag= ListOfSerialNumbers[i],
                 serial= ListOfSerialNumbers[i]
                 )
 
