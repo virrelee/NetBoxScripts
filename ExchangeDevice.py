@@ -14,7 +14,7 @@ class ExchangeDevice(Script):
     Old_Device= ObjectVar(
         description="Enter name of the device you are going to replace",
         model=Device,
-        query_params= {"Status": "$Active"}
+        query_params= {"status": "active"}
     )
 
     def run(self,data,commit):
