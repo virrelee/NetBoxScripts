@@ -41,7 +41,7 @@ class ExchangeDevice(Script):
         self.log_success(f"Created New Device {newdevice}")
 
         output = [
-            "Name,DeviceType,DeviceRole,Site,Rack,Status"
+            "Name,DeviceType,DeviceRole,Site,Rack,Status,serial"
         ]
         attrs = [
         newdevice.name,
@@ -50,6 +50,7 @@ class ExchangeDevice(Script):
         newdevice.site.name,
         newdevice.rack.name,
         newdevice.status,
+        newdevice.serial
         ]
         output.append(",".join(attrs))
         return "\n".join(output)
