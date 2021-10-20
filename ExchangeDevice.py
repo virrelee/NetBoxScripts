@@ -19,7 +19,7 @@ class ExchangeDevice(Script):
     def run(self,data,commit):
         
         oldevice=data["Old_Device"]
-        newdevice=Device.object.get(serial=data["New_Device"])
+        newdevice=Device.objects.get(serial=data["New_Device"])
     #Exctract all data from the old device to the new device    
         oldevicename=oldevice.name
         newdevice.device_type=oldevice.device_type
