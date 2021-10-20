@@ -22,11 +22,11 @@ class Add_Devices(Script):
         for i in range(len(ListOfSerialNumbers)):     
             Create_Device= Device(
                 device_type=data,
-                Name="OK",
-                Site=Site.object.get(Name="Inventory"),
-                Status= DeviceStatusChoices.STATUS_INVENTORY,
-                Device_Role=DeviceRole.objects.get(Name="Unknown"),
-                Serial= ListOfSerialNumbers[i]
+                same="OK",
+                site=Site.object.get(Name="Inventory"),
+                status= DeviceStatusChoices.STATUS_INVENTORY,
+                sevice_Role=DeviceRole.objects.get(Name="Unknown"),
+                serial= ListOfSerialNumbers[i]
                 )
 
             Create_Device.Save()
