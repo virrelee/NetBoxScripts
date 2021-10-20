@@ -5,6 +5,7 @@
 ## This Script Will add Devices to Netbox by their Serialnumber and DeviceType
 ## They will be stored in a site called Inventory 
 
+from typing import List
 from dcim.choices import DeviceStatusChoices
 from dcim.models import Device,DeviceRole,DeviceType,Site
 from extras.scripts import *
@@ -43,4 +44,4 @@ class Add_Devices(Script):
                 )
 
             Create_Device.save()
-            self.log_success(f"Created New Device with serial-Number OK")
+            self.log_success(f"Created New Device with serial-Number {ListOfSerialNumbers[i]}")
