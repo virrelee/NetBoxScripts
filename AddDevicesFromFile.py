@@ -39,7 +39,7 @@ class Add_Devices(Script):
                 site=Site.objects.get(name="Inventory"),
                 status= DeviceStatusChoices.STATUS_INVENTORY,
                 device_role=DeviceRole.objects.get(name="Unknown"),
-                #asset_tag= ListOfSerialNumbers[i],
+                asset_tag= ListOfSerialNumbers[i],
                 serial= ListOfSerialNumbers[i]
                 )
 
