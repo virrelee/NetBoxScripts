@@ -1,7 +1,7 @@
 from dcim.choices import DeviceStatusChoices
 from dcim.models import Device,DeviceRole,DeviceType,Site
 from extras.scripts import *
-#comment
+#commentss
 
 class Add_Devices(Script):
     class Meta:
