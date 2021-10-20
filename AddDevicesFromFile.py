@@ -50,13 +50,13 @@ class Add_Devices(Script):
         output = [
             "Name,Serial Number,Device Type,Device Role,Status"
         ]
-        for Device in Device.objects.filter(site="Inventory"):
+        for Devices in Device.objects.filter(site="Inventory"):
             attrs =  [
-                Device.name,
-                Device.serial,
-                Device.device_type,
-                Device.device_role,
-                Device.Status
+                Devices.name,
+                Devices.serial,
+                Devices.device_type,
+                Devices.device_role,
+                Devices.Status
         ]   
             output.append(",".join(attrs))
 
