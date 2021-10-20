@@ -50,7 +50,8 @@ class Add_Devices(Script):
         output = [
             "Name,Serial Number,Device Type,Device Role,Status"
         ]
-        for Devices in Device.objects.filter(site=Create_Device.site):
+        for serial in ListOfSerialNumbers:
+            Devices = Device.objects.filter(site=serial)
             attrs =  [
                 Devices.name,
                 Devices.serial,
