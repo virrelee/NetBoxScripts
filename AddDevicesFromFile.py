@@ -23,7 +23,7 @@ class Add_Devices(Script):
             Create_Device= Device(
                 device_type=data,
                 same="OK",
-                site=Site.object.get(Name="Inventory"),
+                site=Site.objects.get(Name="Inventory"),
                 status= DeviceStatusChoices.STATUS_INVENTORY,
                 sevice_Role=DeviceRole.objects.get(Name="Unknown"),
                 serial= ListOfSerialNumbers[i]
