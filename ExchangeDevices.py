@@ -9,7 +9,7 @@
 from dcim.models import Device,DeviceRole,Site
 from dcim.choices import DeviceStatusChoices
 from extras.scripts import *
-class ExchangeDevice(Script):
+class ExchangeDevices(Script):
     class Meta:
         name= "Exchange Device         " #set 25 spaces total
         description= "Copy data from old device to new device and put the old device in Inventory"

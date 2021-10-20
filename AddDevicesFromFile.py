@@ -14,7 +14,7 @@ from extras.scripts import *
 class Add_Devices(Script):
     class Meta:
         name= "Add New Devices From File"
-        description= "Adding new Devices to Inventory with Status OK"
+        description= "Adding new devices to Inventory"
         field_Order=["InputFile_Of_SerialNumbers","Type_Of_Device"]
 
     File_With_SerialNumbers = FileVar(
