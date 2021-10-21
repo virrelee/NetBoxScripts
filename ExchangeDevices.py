@@ -35,7 +35,7 @@ class ExchangeDevices(Script):
         newdevice.device_role=oldevice.device_role
         newdevice.site=oldevice.site
         newdevice.rack=oldevice.rack
-        newdevice.ip_address=oldevice.ip_address
+        newdevice.interfaces=oldevice.interfaces
         newdevice.tenant=oldevice.tenant
         newdevice.status=DeviceStatusChoices.STATUS_ACTIVE
     # Puts the old Device in inventory with right data    
