@@ -25,7 +25,7 @@ class Add_Devices(Script):
     Type_Of_Device= ObjectVar(
         description = "Choose which DeviceType the serial numbers represent",
         model=DeviceType,
-        display_field="model"
+        
     )
     
 
