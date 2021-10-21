@@ -4,7 +4,7 @@
 
 ## This Script Will give a new device an old devices properties and put the old device in
 ## the inventory.
-
+## to inventory
 
 from dcim.models import Device,DeviceRole,Site
 from dcim.choices import DeviceStatusChoices
