@@ -6,9 +6,10 @@
 ## the inventory.
 ## to inventoryd
 
-from dcim.models import Device,DeviceRole,Site
+from dcim.models import Device,DeviceRole,Site,Interface
 from dcim.choices import DeviceStatusChoices
 from extras.scripts import *
+
 class ExchangeDevices(Script):
     class Meta:
         name= "Exchange Device         " #set 25 spaces total
@@ -35,8 +36,8 @@ class ExchangeDevices(Script):
         newdevice.device_role=oldevice.device_role
         newdevice.site=oldevice.site
         newdevice.rack=oldevice.rack
-        newdevice.interfaces=oldevice.interfaces
-        newdevice.tenant=oldevice.tenant
+        newdevice.primary_ipv4=oldevice.primary_ipv4
+        newdevice.tenancy.tenant=oldevice.tenancy.tenant
         newdevice.status=DeviceStatusChoices.STATUS_ACTIVE
     # Puts the old Device in inventory with right data    
         oldevice.name="OK"
@@ -44,8 +45,8 @@ class ExchangeDevices(Script):
         oldevice.site=Site.objects.get(name="Inventory")
         oldevice.rack=None
         oldevice.status=DeviceStatusChoices.STATUS_INVENTORY
-        oldevice.tenant=None
-        oldevice.ip_address=None
+        oldevice.tenancy.tenant=None
+        oldevice.primary_ipv4=None
         oldevice.save()
         newdevice.name=oldevicename
         newdevice.save()
