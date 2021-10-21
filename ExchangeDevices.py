@@ -37,7 +37,7 @@ class ExchangeDevices(Script):
         newdevice.site=oldevice.site
         newdevice.rack=oldevice.rack
         newdevice.primary_ip4=oldevice.primary_ip4
-        newdevice.tenancy.tenant=oldevice.tenancy.tenant
+        newdevice.tenant=oldevice.tenant
         newdevice.status=DeviceStatusChoices.STATUS_ACTIVE
     # Puts the old Device in inventory with right data    
         oldevice.name="OK"
@@ -45,7 +45,7 @@ class ExchangeDevices(Script):
         oldevice.site=Site.objects.get(name="Inventory")
         oldevice.rack=None
         oldevice.status=DeviceStatusChoices.STATUS_INVENTORY
-        oldevice.tenancy.tenant=None
+        oldevice.tenant=None
         oldevice.primary_ip4=None
         oldevice.save()
         newdevice.name=oldevicename
