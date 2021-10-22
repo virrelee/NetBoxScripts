@@ -53,7 +53,7 @@ class ExchangeDevices(Script):
 
         IP = IPAddress(
             address=oldevice.primary_ip4,
-            type=IPAddressStatusChoices.STATUS_ACTIVE,
+            status=IPAddressStatusChoices.STATUS_ACTIVE,
             assigned_object=newdevice
 
         )
