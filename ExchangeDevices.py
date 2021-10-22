@@ -32,7 +32,7 @@ class ExchangeDevices(Script):
         oldevice=data["Old_Device"]
         newdevice=Device.objects.get(serial=data["New_Device"])
     #Exctract all data from the old device to the new device    
-        oldevicename=oldevice.name
+        newdevice.name=oldevice.name
         newdevice.device_type=oldevice.device_type
         newdevice.device_role=oldevice.device_role
         newdevice.site=oldevice.site
@@ -61,10 +61,8 @@ class ExchangeDevices(Script):
         oldevice.tenant=None
         oldevice.primary_ip4=None
         oldevice.save()
-        newdevice.name=oldevicename
+        #newdevice.name=oldevice.name
 
-        
-        
         newdevice.save()
         IP.save()
         self.log_success(f"Created New Device {newdevice}")
