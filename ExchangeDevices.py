@@ -54,8 +54,9 @@ class ExchangeDevices(Script):
             address=oldevice.primary_ip4,
             assigned_object=newdevice
         )
-
+        
         newdevice.save()
+        IP.save()
         self.log_success(f"Created New Device {newdevice}")
 
         output = [
