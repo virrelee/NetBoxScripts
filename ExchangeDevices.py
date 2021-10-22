@@ -41,12 +41,17 @@ class ExchangeDevices(Script):
         newdevice.tenant=oldevice.tenant
         newdevice.status=DeviceStatusChoices.STATUS_ACTIVE
 
-        IP = IPAddress(
-            address=f"{oldevice.primary_ip4}",
-            status=IPAddressStatusChoices.STATUS_ACTIVE,
-            assigned_object=newdevice
+        IP = IPAddress.objects.get(address=oldevice.primary_ip4)
+        IP.assigned_object=newdevice
+        IP.assigned_object_id=Interface.objects.get(name="MGMT")
+        IP.save()
 
-        )
+        #IP = IPAddress(
+           # address=f"{oldevice.primary_ip4}",
+          #  status=IPAddressStatusChoices.STATUS_ACTIVE,
+         #   assigned_object=newdevice
+        #
+       # )
     # Puts the old Device in inventory with right data    
         oldevice.name="OK"
         oldevice.device_role=DeviceRole.objects.get(name="Unknown")
@@ -61,7 +66,6 @@ class ExchangeDevices(Script):
 
         
         newdevice.save()
-        IP.save()
         self.log_success(f"Created New Device {newdevice}")
 
         output = [
