@@ -41,10 +41,10 @@ class ExchangeDevices(Script):
         newdevice.tenant=oldevice.tenant
         newdevice.status=DeviceStatusChoices.STATUS_ACTIVE
 
-        IP = IPAddress.objects.get(address=oldevice.primary_ip4)
-        IP.assigned_object=newdevice
-        IP.assigned_object_id=Interface.objects.get(name="MGMT")
-        
+        #IP = IPAddress.objects.get(address=oldevice.primary_ip4)
+        #IP.assigned_object=newdevice
+        #IP.assigned_object_id=Interface.objects.get(name="MGMT")
+        #IP.save()
 
         #IP = IPAddress(
            # address=f"{oldevice.primary_ip4}",
@@ -64,7 +64,7 @@ class ExchangeDevices(Script):
         #newdevice.name=oldevice.name
 
         newdevice.save()
-        IP.save()
+   
         self.log_success(f"Created New Device {newdevice}")
 
         output = [
