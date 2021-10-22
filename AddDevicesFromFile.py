@@ -48,10 +48,12 @@ class Add_Devices(Script):
             Create_Device.save()
 
             interface = Interface(
-                name="test123"
+                name="test123",
+                parent="SKE-SARA-UA3-SW01",
+                
 
             )
-            interface.save()
+            interface.save(Create_Device)
             self.log_success(f"Created New Device with serial-Number {ListOfSerialNumbers[i]}")
         
 #Create a CSV-File
