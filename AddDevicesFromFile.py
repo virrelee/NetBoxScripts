@@ -48,7 +48,7 @@ class Add_Devices(Script):
             Create_Device.save()
 
             interface = Interface(
-                device=Device.objects.get(name=Create_Device.name).id,
+                device=Device.objects.get(serial=Create_Device.serial).id,
                 name="test123",
                 type="virtual"
                 
