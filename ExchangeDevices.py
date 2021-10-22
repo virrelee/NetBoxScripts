@@ -44,7 +44,7 @@ class ExchangeDevices(Script):
         ipa = IPAddress.objects.get(address="10.160.199.15/24")
         ipa.assigned_object=newdevice
         ipa.assigned_object_id=Interface.objects.get(device=oldevice)
-        #IP.save()
+        ipa.save()
 
         #IP = IPAddress(
            # address=f"{oldevice.primary_ip4}",
