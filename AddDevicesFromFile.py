@@ -32,8 +32,13 @@ class Add_Devices(Script):
     def run(self,data,commit):
         ListOfSerialNumbers = data["File_With_SerialNumbers"].read().decode("utf-8").split()
         
-        for i in range(len(ListOfSerialNumbers)):     
-            Create_Device=[ Device(
+        for i in range(len(ListOfSerialNumbers)):
+            interface=Interface(
+            name="MGMT",
+            type="virtual"
+        )
+                 
+            Create_Device= Device(
                 device_type=data["Type_Of_Device"],
                 name="OK",
                 site=Site.objects.get(name="Inventory"),
@@ -41,14 +46,10 @@ class Add_Devices(Script):
                 device_role=DeviceRole.objects.get(name="Unknown"),
                 asset_tag= ListOfSerialNumbers[i],
                 serial= ListOfSerialNumbers[i]
-                ),
-                Interface(
-                    name="MGMT",
-                    type="virtual"
+                )
 
-                )]
 
-            Create_Device.save()
+            Create_Device.save(is_new=interface)
             self.log_success(f"Created New Device with serial-Number {ListOfSerialNumbers[i]}")
         
 #Create a CSV-File
