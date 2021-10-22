@@ -49,7 +49,7 @@ class Add_Devices(Script):
                 )
 
 
-            Create_Device.save(is_new=interface)
+            Create_Device.save(interface)
             self.log_success(f"Created New Device with serial-Number {ListOfSerialNumbers[i]}")
         
 #Create a CSV-File
