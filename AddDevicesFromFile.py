@@ -7,7 +7,7 @@
 
 from typing import List
 from dcim.choices import DeviceStatusChoices
-from dcim.models import Device,DeviceRole,DeviceType,Site,Interface
+from dcim.models import Device,DeviceRole,DeviceType,Site,InterfaceTemplate
 from extras.scripts import *
 
 
@@ -33,10 +33,6 @@ class Add_Devices(Script):
         ListOfSerialNumbers = data["File_With_SerialNumbers"].read().decode("utf-8").split()
         
         for i in range(len(ListOfSerialNumbers)):
-            interface=Interface(
-            name="MGMT"
-            
-        )
                  
             Create_Device= Device(
                 device_type=data["Type_Of_Device"],
@@ -49,7 +45,12 @@ class Add_Devices(Script):
                 )
 
 
-            Create_Device.save(interface)
+            Create_Device.save()
+
+            Interface = InterfaceTemplate(
+                name="MGMT"
+            )
+            Interface.instantiate(Create_Device)
             self.log_success(f"Created New Device with serial-Number {ListOfSerialNumbers[i]}")
         
 #Create a CSV-File
