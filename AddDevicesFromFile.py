@@ -48,12 +48,14 @@ class Add_Devices(Script):
             Create_Device.save()
 
             interface = Interface(
+                device=Devices.objects.get(name=Create_Device.name).id,
                 name="test123",
+                type="virtual"
                 
                 
 
             )
-            interface.save(Create_Device.id)
+            interface.save()
             self.log_success(f"Created New Device with serial-Number {ListOfSerialNumbers[i]}")
         
 #Create a CSV-File
