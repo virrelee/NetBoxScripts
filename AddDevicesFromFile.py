@@ -47,12 +47,12 @@ class Add_Devices(Script):
 
             Create_Device.save()
 
-            Interface = Interface(
+            interface = Interface(
                 name="MGMT",
                 _name= Create_Device
 
             )
-            Interface.save()
+            interface.save()
             self.log_success(f"Created New Device with serial-Number {ListOfSerialNumbers[i]}")
         
 #Create a CSV-File
