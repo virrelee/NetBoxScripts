@@ -48,8 +48,7 @@ class Add_Devices(Script):
             Create_Device.save()
 
             interface = Interface(
-                name="MGMT",
-                _name= Create_Device.name
+                name="MGMT"
 
             )
             interface.save()
