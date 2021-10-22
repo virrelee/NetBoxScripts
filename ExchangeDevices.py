@@ -42,7 +42,7 @@ class ExchangeDevices(Script):
         newdevice.status=DeviceStatusChoices.STATUS_ACTIVE
 
         IP = IPAddress(
-            address=f"{oldevice.primary_ip4}/24",
+            address=f"{oldevice.primary_ip4}",
             status=IPAddressStatusChoices.STATUS_ACTIVE,
             assigned_object=newdevice
 
