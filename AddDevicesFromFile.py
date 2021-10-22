@@ -49,7 +49,7 @@ class Add_Devices(Script):
 
             interface = Interface(
                 name="test123",
-                parent="SKE-SARA-UA3-SW01",
+                
                 
 
             )
