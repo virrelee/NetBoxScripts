@@ -7,7 +7,7 @@
 
 from typing import List
 from dcim.choices import DeviceStatusChoices
-from dcim.models import Device,DeviceRole,DeviceType,Site
+from dcim.models import Device,DeviceRole,DeviceType,Site,Interface
 from extras.scripts import *
 
 
@@ -33,7 +33,7 @@ class Add_Devices(Script):
         ListOfSerialNumbers = data["File_With_SerialNumbers"].read().decode("utf-8").split()
         
         for i in range(len(ListOfSerialNumbers)):     
-            Create_Device= Device(
+            Create_Device=[ Device(
                 device_type=data["Type_Of_Device"],
                 name="OK",
                 site=Site.objects.get(name="Inventory"),
@@ -41,7 +41,12 @@ class Add_Devices(Script):
                 device_role=DeviceRole.objects.get(name="Unknown"),
                 asset_tag= ListOfSerialNumbers[i],
                 serial= ListOfSerialNumbers[i]
-                )
+                ),
+                Interface(
+                    name="MGMT",
+                    type="virtual"
+
+                )]
 
             Create_Device.save()
             self.log_success(f"Created New Device with serial-Number {ListOfSerialNumbers[i]}")
