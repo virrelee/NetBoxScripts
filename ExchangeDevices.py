@@ -40,6 +40,13 @@ class ExchangeDevices(Script):
         newdevice.primary_ip4=oldevice.primary_ip4
         newdevice.tenant=oldevice.tenant
         newdevice.status=DeviceStatusChoices.STATUS_ACTIVE
+
+        IP = IPAddress(
+            address=f"{oldevice.primary_ip4}/24",
+            status=IPAddressStatusChoices.STATUS_ACTIVE,
+            assigned_object=newdevice
+
+        )
     # Puts the old Device in inventory with right data    
         oldevice.name="OK"
         oldevice.device_role=DeviceRole.objects.get(name="Unknown")
@@ -51,12 +58,7 @@ class ExchangeDevices(Script):
         oldevice.save()
         newdevice.name=oldevicename
 
-        IP = IPAddress(
-            address=f"{oldevice.primary_ip4}/24",
-            status=IPAddressStatusChoices.STATUS_ACTIVE,
-            assigned_object=newdevice
 
-        )
         
         newdevice.save()
         IP.save()
