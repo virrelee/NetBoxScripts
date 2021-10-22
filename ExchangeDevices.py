@@ -41,7 +41,7 @@ class ExchangeDevices(Script):
         newdevice.tenant=oldevice.tenant
         newdevice.status=DeviceStatusChoices.STATUS_ACTIVE
 
-        ipa = IPAddress.objects.get(address=oldevice)
+        ipa = IPAddress.objects.get(address="10.160.199.15/24")
         #IP.assigned_object=newdevice
         #IP.assigned_object_id=Interface.objects.get(name="MGMT")
         #IP.save()
