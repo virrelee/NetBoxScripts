@@ -51,7 +51,7 @@ class ExchangeDevices(Script):
         newdevice.name=oldevicename
 
         IP = IPAddress(
-            address=oldevice.primary_ipv4,
+            address=oldevice.primary_ip4,
             assigned_object=newdevice
         )
 
