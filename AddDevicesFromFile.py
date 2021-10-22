@@ -49,7 +49,7 @@ class Add_Devices(Script):
 
             interface = Interface(
                 name="MGMT",
-                _name= Create_Device
+                _name= Create_Device.name
 
             )
             interface.save()
