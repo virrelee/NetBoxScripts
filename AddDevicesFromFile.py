@@ -50,7 +50,7 @@ class Add_Devices(Script):
             Interface = InterfaceTemplate(
                 name="MGMT"
             )
-            Interface.instantiate(Device.objects.get(serial=Create_Device.serial))
+            Interface.instantiate(Device.objects.get(name="SKE-SARA-UA3-010-SW01"))
             Interface.save()
             self.log_success(f"Created New Device with serial-Number {ListOfSerialNumbers[i]}")
         
