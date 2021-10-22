@@ -9,7 +9,7 @@
 from dcim.models import Device,DeviceRole,Site,Interface
 from dcim.choices import DeviceStatusChoices
 from extras.scripts import *
-
+from ipam.models import IPAddress
 class ExchangeDevices(Script):
     class Meta:
         name= "Exchange Device         " #set 25 spaces total
@@ -49,6 +49,12 @@ class ExchangeDevices(Script):
         oldevice.primary_ip4=None
         oldevice.save()
         newdevice.name=oldevicename
+
+        IP = IPAddress(
+            address=oldevice.primary_ipv4,
+            assigned_object=newdevice
+        )
+
         newdevice.save()
         self.log_success(f"Created New Device {newdevice}")
 

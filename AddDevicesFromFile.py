@@ -49,7 +49,7 @@ class Add_Devices(Script):
 
             interface = Interface(
                 device=Device.objects.get(serial=Create_Device.serial),
-                name="test123",
+                name="MGMT",
                 type="virtual"
                 
                 
