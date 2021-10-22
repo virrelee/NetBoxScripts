@@ -7,7 +7,7 @@
 
 from typing import List
 from dcim.choices import DeviceStatusChoices
-from dcim.models import Device,DeviceRole,DeviceType,Site,InterfaceTemplate
+from dcim.models import Device,DeviceRole,DeviceType,Site,Interface
 from extras.scripts import *
 
 
@@ -47,10 +47,11 @@ class Add_Devices(Script):
 
             Create_Device.save()
 
-            Interface = InterfaceTemplate(
-                name="MGMT"
+            Interface = Interface(
+                name="MGMT",
+                _name= Create_Device
+
             )
-            Interface.instantiate(Device.objects.get(name="SKE-SARA-UA3-010-SW01"))
             Interface.save()
             self.log_success(f"Created New Device with serial-Number {ListOfSerialNumbers[i]}")
         
