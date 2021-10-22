@@ -50,7 +50,7 @@ class Add_Devices(Script):
             Interface = InterfaceTemplate(
                 name="MGMT"
             )
-            Interface.instantiate(name=Create_Device.name)
+            Interface.instantiate(Create_Device.name)
             self.log_success(f"Created New Device with serial-Number {ListOfSerialNumbers[i]}")
         
 #Create a CSV-File
