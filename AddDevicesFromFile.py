@@ -34,8 +34,8 @@ class Add_Devices(Script):
         
         for i in range(len(ListOfSerialNumbers)):
             interface=Interface(
-            name="MGMT",
-            type="virtual"
+            name="MGMT"
+            
         )
                  
             Create_Device= Device(
