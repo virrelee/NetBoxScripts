@@ -16,6 +16,12 @@ class CpDevicesFromFile(Script):
     def run(self,data,commit):
         excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE16.xlsx"
         df = pd.read_excel(excel_file, sheet_name="Switchar")
+
+        def slugify(slugish):
+            slugname= slugish
+            randslug = str(randint(0,100000))
+            slugname+=randslug
+            return slugname
         #headers = df.columns
         
         class CreateInventory():
@@ -32,11 +38,7 @@ class CpDevicesFromFile(Script):
             #     self.Tenant=row[10]
             #     self.Region=row[12]
 
-            def slugify(slugish):
-                    slugname= slugish
-                    randslug = str(randint(0,100000))
-                    slugname+=randslug
-                    return slugname
+
 
             def CreateRegion(regionObject):
                 
