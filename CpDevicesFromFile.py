@@ -2,6 +2,7 @@ from django.utils.text import slugify
 from dcim.models import Device,DeviceType,DeviceRole,Region,Site
 from tenancy.models import Tenant
 import pandas as pd
+from random import randint
 from numpy import nan
 from extras.scripts import *
 #fuck you
@@ -39,10 +40,10 @@ class CpDevicesFromFile(Script):
                 if Region.objects.filter(name=regionObject.name).exists():
                     return
                 else:
-                    region=Region(name=regionObject.name,slug=slugify(regionObject.name))
+                    region=Region(name=regionObject.name,slug=slugify(regionObject.name).randint(0,50))
                     region.save()
                     
-                return (regionObject.name)
+                    return (regionObject.name)
             
             
             def CreateTenant(tenantObject):
@@ -51,9 +52,9 @@ class CpDevicesFromFile(Script):
                 elif Tenant.objects.filter(name=tenantObject.name).exists():
                     return
                 else:
-                    tenant= Tenant(name=tenantObject.name,slug=slugify(tenantObject.name))
+                    tenant= Tenant(name=tenantObject.name,slug=slugify(tenantObject.name).randint(0,50))
                     tenant.save()
-                return (tenantObject.name)
+                    return (tenantObject.name)
 
 
         class CreateRegion():
