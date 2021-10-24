@@ -1,5 +1,6 @@
 from dcim.models import Device,DeviceType,DeviceRole,Region,Site
 import pandas as pd
+from numpy import nan
 #fuck you
 excel_file = "Apparatlista_SE16.xlsx"
 #df = pd.read_excel(excel_file, sheet_name="Switchar")
@@ -29,7 +30,7 @@ def run():
         def CreateRegion(self):
             
             
-            if self.Region is None:
+            if self.Region is nan:
                 return
             if self.Region in set_list:
                 return
