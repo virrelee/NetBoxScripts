@@ -72,7 +72,7 @@ class CpDevicesFromFile(Script):
                     tenant.save()
                     self.log_success(f"Created New Tenant {tenantObject.name}")
                     return (tenantObject.name)
-                    
+
             
             def CreateTags(tagsObject):
                 if tagsObject.name is nan:
@@ -100,7 +100,7 @@ class CpDevicesFromFile(Script):
 
 
         class TagsTemplate():
-            def __init__(name,description):
+            def __init__(self,name,description):
                 self.name=name
                 self.description=description
             
@@ -153,6 +153,7 @@ class CpDevicesFromFile(Script):
 
 
         Tenant: {",".join(TenantList)}
+
 
         Tags: {",".join(TenantList)}
         """
