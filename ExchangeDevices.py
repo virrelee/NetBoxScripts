@@ -5,7 +5,7 @@
 ## This Script Will give a new device an old devices properties and put the old device in
 ## the inventory.
 ## to inventoryd
-
+from django.contrib.contenttypes.models import ContentType
 from dcim.models import Device,DeviceRole,Site,Interface
 from dcim.choices import DeviceStatusChoices
 from extras.scripts import *
@@ -43,7 +43,7 @@ class ExchangeDevices(Script):
         newdeviceinterfaceId = Interface.objects.get(device=newdevice.id)
         newdeviceIP_ID = Device.objects.filter(name=newdevice).values_list("primary_ip4", flat=True).first()
         ipa = IPAddress.objects.get(id=newdeviceIP_ID)
-        ipa.assigned_object_type=Device
+        ipa.assigned_object_type=ContentType.objects.get(name="interface")
         ipa.assigned_object_id=newdeviceinterfaceId
         ipa.save()
     # Puts the old Device in inventory with right data    
