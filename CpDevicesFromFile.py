@@ -87,7 +87,7 @@ class CpDevicesFromFile(Script):
             TenantOutput =  CreateInventory.CreateTenant(TenantObject)
             
             
-            if RegionList is None:
+            if RegionOutput is None or TenantOutput is None:
                 continue
             else:
                 RegionList.add(str(RegionOutput))
