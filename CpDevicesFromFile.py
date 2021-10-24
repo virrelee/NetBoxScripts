@@ -97,8 +97,8 @@ class CpDevicesFromFile(Script):
             TenantList.add(str(TenantOutput))
 
 
-            RegionList.remove(None)
-            TenantList.remove(None)
+        RegionList.remove(None)
+        TenantList.remove(None)
             
               
 
