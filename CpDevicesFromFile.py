@@ -93,13 +93,12 @@ class CpDevicesFromFile(Script):
             TenantOutput =  CreateInventory.CreateTenant(TenantObject)
             
             
-            if RegionOutput is None or TenantOutput is None:
-                continue
-            else:
-                RegionList.add(str(RegionOutput))
-                TenantList.add(str(TenantOutput))
-                self.log_success(f"Created New Region {RegionOutput}")
-                self.log_success(f"Created New Tenant {TenantOutput}")  
+            
+            
+            RegionList.add(str(RegionOutput))
+            TenantList.add(str(TenantOutput))
+            self.log_success(f"Created New Region {RegionOutput}")
+            self.log_success(f"Created New Tenant {TenantOutput}")  
 
         Output = f""" Region: {",".join(RegionList)}
                       Tenant: {",".join(TenantList)} 
