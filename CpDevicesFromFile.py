@@ -11,7 +11,7 @@ class CpDevicesFromFile(Script):
         field_order= ["Start"]
 
     Start = StringVar(
-        name="type something and kick in the script"
+        description="type something and kick in the script"
     )
     def run(self,data,commit):
         excel_file = "Apparatlista_SE16.xlsx"
