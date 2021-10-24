@@ -52,8 +52,11 @@ class CpDevicesFromFile(Script):
                 return (f"Region called {self.Region} has been created")
         output=list()
         for index,row in df.iterrows():
-            output.append(CreateInventory(row).CreateRegion())
-        return output
+            outputs = CreateInventory(row).CreateRegion()
+            if outputs is not None:
+                output.append(outputs)
+            
+        return ([i for i in output])
 
 
 
