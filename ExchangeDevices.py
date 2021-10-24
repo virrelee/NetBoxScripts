@@ -23,8 +23,13 @@ class ExchangeDevices(Script):
     )
     Old_Device= ObjectVar(
         description="Enter name of the device you are going to replace",
+        model=Site,
+        query_params= {"name": ["Inventory","Offline"}
+    )
+    Inventory_Choice= ObjectVar(
+        description="Which kind of state do you wish to put the Old Device"
         model=Device,
-        query_params= {"status": "active"}
+        query_params: {"Status":["Inventory","Offline"}
     )
 
     def run(self,data,commit):
@@ -49,7 +54,7 @@ class ExchangeDevices(Script):
     # Puts the old Device in inventory with right data    
         oldevice.name="OK"
         oldevice.device_role=DeviceRole.objects.get(name="Unknown")
-        oldevice.site=Site.objects.get(name="Inventory")
+        oldevice.site=Site.objects.get(name=data["Inventory_Choice"])
         oldevice.rack=None
         oldevice.status=DeviceStatusChoices.STATUS_INVENTORY
         oldevice.tenant=None
