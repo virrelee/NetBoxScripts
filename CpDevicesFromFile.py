@@ -48,11 +48,9 @@ class CpDevicesFromFile(Script):
                 if Region.objects.filter(name=regionObject.name).exists():
                     return
                 else:
-                    slugname= regionObject.name
-                    randslug = str(randint(0,100))
-                    slugname+=randslug
                     region=Region(name=regionObject.name,slug=slugify(regionObject.name).lower())
                     region.save()
+                    self.log_success(f"Created New Region {RegionOutput}")
                     
                     return (regionObject.name)
             
@@ -65,7 +63,9 @@ class CpDevicesFromFile(Script):
                 else:
 
                     tenant= Tenant(name=tenantObject.name,slug=slugify(tenantObject.name).lower())
+                
                     tenant.save()
+                    self.log_success(f"Created New Tenant {TenantOutput}")
                     return (tenantObject.name)
 
             
@@ -92,16 +92,21 @@ class CpDevicesFromFile(Script):
             RegionOutput = CreateInventory.CreateRegion(RegionObject)
             TenantOutput =  CreateInventory.CreateTenant(TenantObject)
             
-            
-            
-            
+              
             RegionList.add(str(RegionOutput))
             TenantList.add(str(TenantOutput))
-            self.log_success(f"Created New Region {RegionOutput}")
-            self.log_success(f"Created New Tenant {TenantOutput}")  
 
-        Output = f""" Region: {",".join(RegionList)}
-                      Tenant: {",".join(TenantList)} 
+
+            RegionList.remove(None)
+            TenantList.remove(None)
+            
+              
+
+        Output = f""" 
+        Region: {",".join(RegionList)}
+
+
+        Tenant: {",".join(TenantList)} 
         """
         return Output
 
