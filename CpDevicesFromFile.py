@@ -137,7 +137,7 @@ class CpDevicesFromFile(Script):
         class SiteTemplate():
             def __init__(self,row):
                 self.name=row["Fastighet"]
-                self.status=status
+                self.status=None
                 self.region=row["Ort"]
                 self.facility=row["Krafts anläggning"]
                 self.tenant=row["Förvaltning"]
