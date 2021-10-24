@@ -2,19 +2,21 @@ from dcim.models import Device,DeviceType,DeviceRole,Region,Site
 import pandas as pd
 from numpy import nan
 #fuck you
-excel_file = "Apparatlista_SE16.xlsx"
-#df = pd.read_excel(excel_file, sheet_name="Switchar")
-#headers = df.columns
-set_list=list()
+
 
 
 class Cp_Devices_FromFile(Script):
+
     class Meta:
         name= "Copy Devices From File         " #set 25 spaces total
         description= "Copy data from old device to new device and put the old device in Inventory"
 
 
     def run(self,data,commit):
+        excel_file = "Apparatlista_SE16.xlsx"
+        df = pd.read_excel(excel_file, sheet_name="Switchar")
+        #headers = df.columns
+        set_list=list()
         class CreateInventory():
             def __init__(self,row):
                 print (row[12])
