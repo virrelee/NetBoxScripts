@@ -41,7 +41,7 @@ class CpDevicesFromFile(Script):
                     return
                 else:
                     slugname= tenantObject.name
-                    randslug = randint(0,100)
+                    randslug = str(randint(0,100))
                     slugname+=randslug
                     region=Region(name=regionObject.name,slug=slugify(slugname))
                     region.save()
@@ -56,7 +56,7 @@ class CpDevicesFromFile(Script):
                     return
                 else:
                     slugname= tenantObject.name
-                    randslug = randint(0,100)
+                    randslug = str(randint(0,100))
                     slugname+=randslug
                     tenant= Tenant(name=tenantObject.name,slug=slugify(randslug))
                     tenant.save()
