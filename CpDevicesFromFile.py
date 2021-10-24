@@ -93,7 +93,7 @@ class CpDevicesFromFile(Script):
                     return
                 if siteObject.name is None:
                     return
-                elif Site.objects.filter(name=tagsObject.name).exists():
+                elif Site.objects.filter(name=siteObject.name).exists():
                     return
                 else:
                     site = Site(
