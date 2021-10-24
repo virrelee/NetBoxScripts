@@ -5,6 +5,7 @@ import pandas as pd
 from random import randint
 from numpy import nan
 from extras.scripts import *
+from extras.models import Tag
 #fuck you
 class CpDevicesFromFile(Script):
 
@@ -71,15 +72,52 @@ class CpDevicesFromFile(Script):
                     tenant.save()
                     self.log_success(f"Created New Tenant {tenantObject.name}")
                     return (tenantObject.name)
+                    
+            
+            def CreateTags(tagsObject):
+                if tagsObject.name is nan:
+                    return
+                if tagsObject.name is None:
+                    return
+                elif Tenant.objects.filter(name=tagsObject.name).exists():
+                    return
+                else:
+                    tags = Tag(name=tagsObject.name,slug=slugify(tagsObject.name).lower(),description=tagsObject.description)
+                    tags.save()
+                    self.log_success(f"Created New Tag {tagsObject.name}")
+                    return (tagsObject.name)
+                    
+
 
             
-        class CreateRegion():
+        class RegionTemplate():
             def __init__(self,name):
                 self.name=name
 
-        class CreateTenant():
+        class TenantTemplate():
             def __init__(self,name):
                 self.name=name
+
+
+        class TagsTemplate():
+            def __init__(name,description):
+                self.name=name
+                self.description=description
+            
+
+
+        class SiteTemplate():
+            def __init__(self,name,status,region,facility,tenant,physical_address,latitude,longitude,comments):
+                self.name=name
+                self.status=status
+                self.region=region
+                self.facility=facility
+                self.tenant=tenant
+                self.physical_address=physical_address
+                self.latitude=latitude
+                self.longitude=longitude
+                self.comments=comments
+
 
         
  
@@ -87,22 +125,26 @@ class CpDevicesFromFile(Script):
         
         RegionList=set()
         TenantList=set()
+        TagsList=set()
         for index,row in df.iterrows():
-            RegionObject = CreateRegion(row[12])
-            TenantObject = CreateTenant(row["Förvaltning"])
+            RegionObject = RegionTemplate(row[12])
+            TenantObject = TenantTemplate(row[10])
+            tagsObject = TagsTemplate(row[4],row[5])
+
 
             
 
             RegionOutput = CreateInventory.CreateRegion(RegionObject)
             TenantOutput =  CreateInventory.CreateTenant(TenantObject)
-            
+            TagsOutput = CreateInventory.CreateTags(tagsObject)
               
             RegionList.add(str(RegionOutput))
             TenantList.add(str(TenantOutput))
-
+            TagsList.add(str(TagsOutput))
 
         RegionList.remove("None")
         TenantList.remove("None")
+        TagsList.remove("None")
             
               
 
@@ -110,7 +152,9 @@ class CpDevicesFromFile(Script):
         Region: {",".join(RegionList)}
 
 
-        Tenant: {",".join(TenantList)} 
+        Tenant: {",".join(TenantList)}
+
+        Tags: {",".join(TenantList)}
         """
         return Output
 
