@@ -45,6 +45,8 @@ class CpDevicesFromFile(Script):
                 
                 if regionObject.name is nan:
                     return
+                if regionObject is None:
+                    return
                 if Region.objects.filter(name=regionObject.name).exists():
                     return
                 else:
@@ -57,6 +59,8 @@ class CpDevicesFromFile(Script):
             
             def CreateTenant(tenantObject):
                 if tenantObject.name is nan:
+                    return
+                if tenantObject.name is None:
                     return
                 elif Tenant.objects.filter(name=tenantObject.name).exists():
                     return
@@ -97,8 +101,8 @@ class CpDevicesFromFile(Script):
             TenantList.add(str(TenantOutput))
 
 
-        RegionList.remove(None)
-        TenantList.remove(None)
+        RegionList.remove("None")
+        TenantList.remove("None")
             
               
 
