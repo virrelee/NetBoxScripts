@@ -1,4 +1,4 @@
-from django.utils.text import slugify
+
 from dcim.models import Device,DeviceType,DeviceRole,Region,Site
 from tenancy.models import Tenant
 import pandas as pd
@@ -32,6 +32,12 @@ class CpDevicesFromFile(Script):
             #     self.Tenant=row[10]
             #     self.Region=row[12]
 
+            def slugify(slugish):
+                    slugname= slugish
+                    randslug = str(randint(0,100000))
+                    slugname+=randslug
+                    return slugname
+
             def CreateRegion(regionObject):
                 
                 
@@ -43,7 +49,7 @@ class CpDevicesFromFile(Script):
                     slugname= regionObject.name
                     randslug = str(randint(0,100))
                     slugname+=randslug
-                    region=Region(name=regionObject.name,slug=slugify(slugname))
+                    region=Region(name=regionObject.name,slug=slugify(regionObject.name).lower())
                     region.save()
                     
                     return (regionObject.name)
@@ -55,14 +61,12 @@ class CpDevicesFromFile(Script):
                 elif Tenant.objects.filter(name=tenantObject.name).exists():
                     return
                 else:
-                    slugname= tenantObject.name
-                    randslug = str(randint(0,100))
-                    slugname+=randslug
-                    tenant= Tenant(name=tenantObject.name,slug=slugify(randslug))
+
+                    tenant= Tenant(name=tenantObject.name,slug=slugify(tenantObject.name).lower())
                     tenant.save()
                     return (tenantObject.name)
 
-
+            
         class CreateRegion():
             def __init__(self,name):
                 self.name=name
