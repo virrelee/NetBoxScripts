@@ -81,8 +81,8 @@ class CpDevicesFromFile(Script):
             if RegionList is None:
                 continue
             else:
-                RegionList.add(RegionOutput)
-                TenantList.add(TenantOutput)
+                RegionList.add(str(RegionOutput))
+                TenantList.add(str(TenantOutput))
 
 
         Output = f""" Region: {",".join(RegionList)}
