@@ -1,4 +1,4 @@
-from dcim.models import Device,DeviceType,DeviceRole,
+from dcim.models import Device,DeviceType,DeviceRole
 from dcim.sites import Region,Site
 
 from numpy import nan
