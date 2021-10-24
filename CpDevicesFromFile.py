@@ -74,8 +74,8 @@ class CpDevicesFromFile(Script):
 
             
 
-            RegionOutput = CreateInventory().CreateRegion(RegionObject)
-            TenantOutput =  CreateInventory().CreateTenant(TenantObject)
+            RegionOutput = CreateInventory.CreateRegion(RegionObject)
+            TenantOutput =  CreateInventory.CreateTenant(TenantObject)
             
             
             if RegionList is None:
