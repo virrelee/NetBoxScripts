@@ -43,7 +43,7 @@ class ExchangeDevices(Script):
         newdeviceinterfaceId = Interface.objects.get(device=newdevice.id)
         newdeviceIP_ID = Device.objects.filter(name=newdevice).values_list("primary_ip4", flat=True).first()
         ipa = IPAddress.objects.get(id=newdeviceIP_ID)
-        ipa.assigned_object_type=Interface
+        ipa.assigned_object_type=Device
         ipa.assigned_object_id=newdeviceinterfaceId
         ipa.save()
     # Puts the old Device in inventory with right data    
