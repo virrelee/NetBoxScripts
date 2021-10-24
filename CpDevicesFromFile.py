@@ -1,3 +1,4 @@
+from django.utils.text import slugify
 from dcim.models import Device,DeviceType,DeviceRole,Region,Site
 import pandas as pd
 from numpy import nan
@@ -8,17 +9,13 @@ class CpDevicesFromFile(Script):
     class Meta:
         name= "Copy Devices From File         " #set 25 spaces total
         description= "Copy data from old device to new device and put the old device in Inventory"
-        field_order= ["Start"]
 
-    Start = StringVar(
-        description="type something and kick in the script"
-    )
+
     def run(self,data,commit):
         excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE16.xlsx"
         df = pd.read_excel(excel_file, sheet_name="Switchar")
         #headers = df.columns
         set_list=list()
-        x = data["Start"]
         class CreateInventory():
             def __init__(self,row):
                 print (row[12])
@@ -47,7 +44,7 @@ class CpDevicesFromFile(Script):
                 if self.Region in set_list:
                     return
                 else:
-                    region=Region(name=self.Region)
+                    region=Region(name=self.Region,slug=slugify(self.Region))
                     set_list.append(self.Region)
                     region.save()
                     
