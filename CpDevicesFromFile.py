@@ -85,7 +85,7 @@ class CpDevicesFromFile(Script):
         TenantList=set()
         for index,row in df.iterrows():
             RegionObject = CreateRegion(row[12])
-            TenantObject = CreateTenant(row[10])
+            TenantObject = CreateTenant(row["Förvaltning"])
 
             
 
