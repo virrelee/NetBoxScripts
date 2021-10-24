@@ -104,8 +104,8 @@ class CpDevicesFromFile(Script):
                     facility=siteObject.facility,
                     tenant=Tenant.objects.get(name=siteObject.tenant),
                     physical_address=siteObject.physical_address,
-                    latitude=float(siteObject.latitude),
-                    longitude=float(siteObject.longitude),
+                    #latitude=siteObject.latitude,
+                    #longitude=siteObject.longitude,
                     comments=siteObject.comments)
 
                     site.save()
