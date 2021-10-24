@@ -13,7 +13,7 @@ class CpDevicesFromFile(Script):
         description= "Copy data from old device to new device and put the old device in Inventory"
 
 
-    def run(tenantObject,data,commit):
+    def run(self,data,commit):
         excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE16.xlsx"
         df = pd.read_excel(excel_file, sheet_name="Switchar")
         #headers = df.columns
@@ -72,7 +72,7 @@ class CpDevicesFromFile(Script):
                 self.name=name
 
         
-        
+ 
         
         
         RegionList=set()
@@ -93,10 +93,10 @@ class CpDevicesFromFile(Script):
                 RegionList.add(str(RegionOutput))
                 TenantList.add(str(TenantOutput))
                 self.log_success(f"Created New Region {RegionOutput}")
-                self.log_success(f"Created New Tenant {TenantOutput}")
+                self.log_success(f"Created New Tenant {TenantOutput}")  
 
         Output = f""" Region: {",".join(RegionList)}
-                        Tenant: {",".join(TenantList)} 
+                      Tenant: {",".join(TenantList)} 
         """
         return Output
 
