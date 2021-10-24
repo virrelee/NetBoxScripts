@@ -2,8 +2,8 @@ from dcim.models import Device,DeviceType,DeviceRole,Region,Site
 #import pandas as pd
 #fuck you
 excel_file = "Apparatlista_SE16.xlsx"
-df = pd.read_excel(excel_file, sheet_name="Switchar")
-headers = df.columns
+#df = pd.read_excel(excel_file, sheet_name="Switchar")
+#headers = df.columns
 set_list=list()
 def run():
     class CreateInventory():
@@ -38,9 +38,9 @@ def run():
                 set_list.append(self.Region)
             return (f"Region called {self.Region} has been created")
     output=list()
-    for index,row in df.iterrows():
-        output.add(CreateInventory(row).CreateRegion())
-    return output
+    #for index,row in df.iterrows():
+        #output.add(CreateInventory(row).CreateRegion())
+    #return output
 
 
 
