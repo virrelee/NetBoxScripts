@@ -52,7 +52,7 @@ class CpDevicesFromFile(Script):
                 else:
                     region=Region(name=regionObject.name,slug=slugify(regionObject.name).lower())
                     region.save()
-                    self.log_success(f"Created New Region {RegionOutput}")
+                    self.log_success(f"Created New Region {regionObject.name}")
                     
                     return (regionObject.name)
             
@@ -69,7 +69,7 @@ class CpDevicesFromFile(Script):
                     tenant= Tenant(name=tenantObject.name,slug=slugify(tenantObject.name).lower())
                 
                     tenant.save()
-                    self.log_success(f"Created New Tenant {TenantOutput}")
+                    self.log_success(f"Created New Tenant {tenantObject.name}")
                     return (tenantObject.name)
 
             
