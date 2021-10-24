@@ -24,7 +24,7 @@ class ExchangeDevices(Script):
     Old_Device= ObjectVar(
         description="Enter name of the device you are going to replace",
         model=Site,
-        query_params= {"name": ["Inventory","Offline"}
+        query_params= {"name": ["Inventory","Offline"]}
     )
     Inventory_Choice= ObjectVar(
         description="Which kind of state do you wish to put the Old Device"
