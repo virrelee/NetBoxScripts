@@ -45,13 +45,13 @@ class CpDevicesFromFile(Script):
                 return (tenantObject.Region)
             
             def CreateTenant(tenantObject):
-                if tenantObject.Tenant is nan:
+                if tenantObject.name is nan:
                     return
-                if Tenant.objects.filter(name=Tenant).exists():
+                if Tenant.objects.filter(name=tenantObject.name).exists():
                     return
                 else:
-                    tenant= Tenant(name=tenantObject.Tenant,slug=slugify(tenantObject.Tenant))
-                return (tenantObject.Tenant)
+                    tenant= Tenant(name=tenantObject.name,slug=slugify(tenantObject.name))
+                return (tenantObject.name)
 
 
         class CreateRegion():
