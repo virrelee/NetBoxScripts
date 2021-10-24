@@ -102,7 +102,7 @@ class CpDevicesFromFile(Script):
                     status=SiteStatusChoices.STATUS_ACTIVE,
                     region=Region.objects.get(name=siteObject.region),
                     facility=siteObject.facility,
-                    tenant=Site.objects.get(name=siteObject.tenant),
+                    tenant=Tenant.objects.get(name=siteObject.tenant),
                     physical_address=siteObject.physical_address,
                     latitude=float(siteObject.latitude),
                     longitude=float(siteObject.longitude),
