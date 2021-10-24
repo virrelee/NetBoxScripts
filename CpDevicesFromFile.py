@@ -1,5 +1,5 @@
 from django.utils.text import slugify
-from dcim.models import Device,DeviceType,DeviceRole,Region,Site
+from dcim.models import Device,DeviceType,DeviceRole,Region,Site,Tenant
 import pandas as pd
 from numpy import nan
 from extras.scripts import *
@@ -11,50 +11,83 @@ class CpDevicesFromFile(Script):
         description= "Copy data from old device to new device and put the old device in Inventory"
 
 
-    def run(self,data,commit):
+    def run(tenantObject,data,commit):
         excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE16.xlsx"
         df = pd.read_excel(excel_file, sheet_name="Switchar")
         #headers = df.columns
         
         class CreateInventory():
-            def __init__(self,row):
-                self.Kind_Of_Device_Tag=row[0]
-                self.DeviceType=row[1]
-                self.DeviceName=row[2]
-                self.DeviceStatus=row[3]
-                self.SLA_tag=row[4]
-                self.SLA_Time_tag=row[5]
-                self.ImplementationDate=row[7]
-                self.RIR=row[8]
-                self.IPAddr=row[9]
-                self.Tenant=row[10]
-                self.Region=row[12]
+            # def __init__(self,row):
+            #     self.Kind_Of_Device_Tag=row[0]
+            #     self.DeviceType=row[1]
+            #     self.DeviceName=row[2]
+            #     self.DeviceStatus=row[3]
+            #     self.SLA_tag=row[4]
+            #     self.SLA_Time_tag=row[5]
+            #     self.ImplementationDate=row[7]
+            #     self.RIR=row[8]
+            #     self.IPAddr=row[9]
+            #     self.Tenant=row[10]
+            #     self.Region=row[12]
 
-
-
-
-
-            set_list=list()
-            def CreateRegion(self):
+            def CreateRegion(regionObject):
                 
                 
-                if self.Region is nan:
+                if regionObject.name is nan:
                     return
-                if Region.objects.filter(name=self.Region).exists():
+                if Region.objects.filter(name=regionObject.name).exists():
                     return
                 else:
-                    region=Region(name=self.Region,slug=slugify(self.Region))
+                    region=Region(name=regionObject.name,slug=slugify(regionObject.name))
                     region.save()
                     
-                return (f"Region called {self.Region} has been created")
-        output=list()
-        for index,row in df.iterrows():
-            outputs = CreateInventory(row).CreateRegion()
-            if outputs is not None:
-                output.append(outputs)
-                self.log_success(f"Created New Region Called {outputs}")
+                return (tenantObject.Region)
             
-        return ([i for i in output])
+            def CreateTenant(tenantObject):
+                if tenantObject.Tenant is nan:
+                    return
+                if Tenant.objects.filter(name=Tenant).exists():
+                    return
+                else:
+                    tenant= Tenant(name=tenantObject.Tenant,slug=slugify(tenantObject.Tenant))
+                return (tenantObject.Tenant)
+
+
+        class CreateRegion():
+            def __init__(self,name):
+                self.name=name
+
+        class CreateTenant():
+            def __init__(self,name):
+                self.name=name
+
+        
+        
+        
+        
+        RegionList=set()
+        TenantList=set()
+        for index,row in df.iterrows():
+            RegionObject = CreateRegion(row[12])
+            TenantObject = CreateTenant(row[10])
+
+            
+
+            RegionOutput = CreateInventory(RegionObject).CreateRegion
+            TenantOutput =  CreateInventory(TenantObject).CreateTenant
+            
+            
+            if RegionList is None:
+                continue
+            else:
+                RegionList.add(RegionOutput)
+                TenantList.add(TenantOutput)
+
+
+            Output = f""" Region: {",".join(RegionList)}
+                          Tenant: {",".join(TenantList)} 
+            """
+        return Output
 
 
 
