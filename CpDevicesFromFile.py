@@ -40,7 +40,10 @@ class CpDevicesFromFile(Script):
                 if Region.objects.filter(name=regionObject.name).exists():
                     return
                 else:
-                    region=Region(name=regionObject.name,slug=slugify(regionObject.name).randint(0,50))
+                    slugname= tenantObject.name
+                    randslug = randint(0,100)
+                    slugname+=randslug
+                    region=Region(name=regionObject.name,slug=slugify(slugname))
                     region.save()
                     
                     return (regionObject.name)
@@ -52,7 +55,10 @@ class CpDevicesFromFile(Script):
                 elif Tenant.objects.filter(name=tenantObject.name).exists():
                     return
                 else:
-                    tenant= Tenant(name=tenantObject.name,slug=slugify(tenantObject.name).randint(0,50))
+                    slugname= tenantObject.name
+                    randslug = randint(0,100)
+                    slugname+=randslug
+                    tenant= Tenant(name=tenantObject.name,slug=slugify(randslug))
                     tenant.save()
                     return (tenantObject.name)
 
