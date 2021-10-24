@@ -2,10 +2,7 @@ from dcim.models import Device,DeviceType,DeviceRole,Region,Site
 import pandas as pd
 from numpy import nan
 #fuck you
-
-
-
-class Cp_Devices_FromFile(Script):
+class CpDevicesFromFile(Script):
 
     class Meta:
         name= "Copy Devices From File         " #set 25 spaces total
