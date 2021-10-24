@@ -41,6 +41,7 @@ class ExchangeDevices(Script):
         newdevice.tenant=oldevice.tenant
         newdevice.status=DeviceStatusChoices.STATUS_ACTIVE
         newdeviceinterfaceId = Interface.objects.get(device=newdevice.id)
+        print (newdeviceinterfaceId)
         newdeviceIP_ID = Device.objects.filter(name=newdevice).values_list("primary_ip4", flat=True).first()
         ipa = IPAddress.objects.get(id=newdeviceIP_ID)
         #ipa.assigned_object_type=ContentType.objects.filter(model="interface").id
