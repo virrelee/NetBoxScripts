@@ -1,5 +1,6 @@
 
 from dcim.models import Device,DeviceType,DeviceRole,Region,Site
+from dcim.choices import SiteStatusChoices
 from tenancy.models import Tenant
 import pandas as pd
 from random import randint
@@ -86,6 +87,31 @@ class CpDevicesFromFile(Script):
                     tags.save()
                     self.log_success(f"Created New Tag {tagsObject.name}")
                     return (tagsObject.name)
+
+            def CreateSite(siteObject):
+                if siteObject.name is nan:
+                    return
+                if siteObject.name is None:
+                    return
+                elif Site.objects.filter(name=tagsObject.name).exists():
+                    return
+                else:
+                    site = Site(
+                    name=siteObject.name,
+                    slug=slugify(siteObject.name).lower(),
+                    status=SiteStatusChoices.STATUS_ACTIVE,
+                    region=Region.objects.get(Name=siteObject.region),
+                    facility=siteObject.facility,
+                    tenant=Site.object.get(name=siteObject.tenant),
+                    physical_address=siteObject.physical_address,
+                    latitude=float(siteObject.latitude),
+                    longitude=float(siteObject.longitude),
+                    comments=siteObject.comments)
+
+                    site.save()
+                    self.log_success(f"Created New Site {siteObject.name}")
+                    return (siteObject.name)
+
                     
 
 
@@ -104,49 +130,84 @@ class CpDevicesFromFile(Script):
                 self.name=name
                 self.description=description
             
+        class CustomFieldsTemplate():
+            pass
 
 
         class SiteTemplate():
-            def __init__(self,name,status,region,facility,tenant,physical_address,latitude,longitude,comments):
-                self.name=name
+            def __init__(self,row):
+                self.name=row["Fastighet"]
                 self.status=status
-                self.region=region
-                self.facility=facility
-                self.tenant=tenant
-                self.physical_address=physical_address
-                self.latitude=latitude
-                self.longitude=longitude
-                self.comments=comments
+                self.region=row["Ort"]
+                self.facility=row["Krafts anläggning"]
+                self.tenant=row["Förvaltning"]
+                self.physical_address=row["Adress"]
+                self.latitude=row["GPS_LAT"]
+                self.longitude=row["GPS_LONG"]
+                self.comments=row["Hus"]
 
-
-        
- 
-        
-        
         RegionList=set()
         TenantList=set()
         TagsList=set()
-        for index,row in df.iterrows():
-            RegionObject = RegionTemplate(row[12])
-            TenantObject = TenantTemplate(row[10])
-            tagsObject = TagsTemplate(row[4],row[5])
+        SiteList=set()
+        
+        for i in range(3):
+        
+        
 
+            for index,row in df.iterrows():
+                if i == 0:
+                    RegionObject = RegionTemplate(row[12])
+                    TenantObject = TenantTemplate(row[10])
+                    tagsObject = TagsTemplate(row[4],row[5])
+                
+                    RegionOutput = CreateInventory.CreateRegion(RegionObject)
+                    TenantOutput =  CreateInventory.CreateTenant(TenantObject)
+                    TagsOutput = CreateInventory.CreateTags(tagsObject)
+                
+                
+                    RegionList.add(str(RegionOutput))
+                    TenantList.add(str(TenantOutput))
+                    TagsList.add(str(TagsOutput))
+                
+                if i == 1:
+                    siteObject = SiteTemplate(row)
 
-            
+                    SiteOutput = CreateInventory.CreateSite(siteObject)
 
-            RegionOutput = CreateInventory.CreateRegion(RegionObject)
-            TenantOutput =  CreateInventory.CreateTenant(TenantObject)
-            TagsOutput = CreateInventory.CreateTags(tagsObject)
-              
-            RegionList.add(str(RegionOutput))
-            TenantList.add(str(TenantOutput))
-            TagsList.add(str(TagsOutput))
+                    SiteList.add(str(SiteOutput))
+                
+                
+                
+                
+                
+                
+                
+                
+                
+
 
         RegionList.remove("None")
         TenantList.remove("None")
         TagsList.remove("None")
             
-              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         Output = f""" 
         Region: {",".join(RegionList)}
