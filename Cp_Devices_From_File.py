@@ -1,5 +1,4 @@
-from dcim.models import Device,DeviceType,DeviceRole
-from dcim.sites import Region,Site
+from dcim.models import Device,DeviceType,DeviceRole,Region,Site
 
 from numpy import nan
 import pandas as pd
