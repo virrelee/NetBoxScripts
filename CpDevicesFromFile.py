@@ -14,7 +14,7 @@ class CpDevicesFromFile(Script):
         description="type something and kick in the script"
     )
     def run(self,data,commit):
-        excel_file = "Apparatlista_SE16.xlsx"
+        excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE16.xlsx"
         df = pd.read_excel(excel_file, sheet_name="Switchar")
         #headers = df.columns
         set_list=list()
