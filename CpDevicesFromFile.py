@@ -40,7 +40,7 @@ class CpDevicesFromFile(Script):
                 if Region.objects.filter(name=regionObject.name).exists():
                     return
                 else:
-                    slugname= tenantObject.name
+                    slugname= regionObject.name
                     randslug = str(randint(0,100))
                     slugname+=randslug
                     region=Region(name=regionObject.name,slug=slugify(slugname))
