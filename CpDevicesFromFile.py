@@ -1,5 +1,6 @@
 from django.utils.text import slugify
-from dcim.models import Device,DeviceType,DeviceRole,Region,Site,Tenant
+from dcim.models import Device,DeviceType,DeviceRole,Region,Site
+from tenancy.models import Tenant
 import pandas as pd
 from numpy import nan
 from extras.scripts import *
@@ -84,9 +85,9 @@ class CpDevicesFromFile(Script):
                 TenantList.add(TenantOutput)
 
 
-            Output = f""" Region: {",".join(RegionList)}
-                          Tenant: {",".join(TenantList)} 
-            """
+        Output = f""" Region: {",".join(RegionList)}
+                        Tenant: {",".join(TenantList)} 
+        """
         return Output
 
 
