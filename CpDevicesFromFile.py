@@ -155,7 +155,7 @@ class CpDevicesFromFile(Script):
         Tenant: {",".join(TenantList)}
 
 
-        Tags: {",".join(TenantList)}
+        Tags: {",".join(TagsList)}
         """
         return Output
 
