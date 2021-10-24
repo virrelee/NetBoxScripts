@@ -142,8 +142,8 @@ class CpDevicesFromFile(Script):
                 self.facility=row["Krafts anläggning"]
                 self.tenant=row["Förvaltning"]
                 self.physical_address=row["Adress"]
-                self.latitude=row["GPS_LAT"]
-                self.longitude=row["GPS_LONG"]
+                self.latitude=float(row["GPS_LAT"])
+                self.longitude=float(row["GPS_LONG"])
                 self.comments=row["Hus"]
 
         RegionList=set()
