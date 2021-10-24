@@ -50,13 +50,14 @@ class CpDevicesFromFile(Script):
                     region=Region(name=self.Region)
                     set_list.append(self.Region)
                     region.save()
-                    self.log_success(f"Created New Region Called {newdevice}")
+                    
                 return (f"Region called {self.Region} has been created")
         output=list()
         for index,row in df.iterrows():
             outputs = CreateInventory(row).CreateRegion()
             if outputs is not None:
                 output.append(outputs)
+                self.log_success(f"Created New Region Called {outputs}")
             
         return ([i for i in output])
 
