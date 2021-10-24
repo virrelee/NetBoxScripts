@@ -42,7 +42,7 @@ class CpDevicesFromFile(Script):
                     region=Region(name=regionObject.name,slug=slugify(regionObject.name))
                     region.save()
                     
-                return (tenantObject.Region)
+                return (tenantObject.name)
             
             def CreateTenant(tenantObject):
                 if tenantObject.name is nan:
