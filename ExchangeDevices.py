@@ -29,7 +29,7 @@ class ExchangeDevices(Script):
     Inventory_Choice= ObjectVar(
         description="Which kind of state do you wish to put the Old Device",
         model=Site,
-        query_params= {"Site":["Inventory","Offline"]}
+        query_params= {"site":["Inventory","Offline"]}
     )
 
     def run(self,data,commit):
