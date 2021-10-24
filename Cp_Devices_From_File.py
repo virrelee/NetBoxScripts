@@ -7,7 +7,8 @@ excel_file = "Apparatlista_SE16.xlsx"
 #headers = df.columns
 set_list=list()
 
-class Cp_Devices_From_File(Script):
+
+class Cp_Devices_FromFile(Script):
     class Meta:
         name= "Copy Devices From File         " #set 25 spaces total
         description= "Copy data from old device to new device and put the old device in Inventory"
@@ -46,9 +47,9 @@ class Cp_Devices_From_File(Script):
                     set_list.append(self.Region)
                 return (f"Region called {self.Region} has been created")
         output=list()
-        #for index,row in df.iterrows():
-            #output.add(CreateInventory(row).CreateRegion())
-        #return output
+        for index,row in df.iterrows():
+            output.add(CreateInventory(row).CreateRegion())
+        return output
 
 
 
