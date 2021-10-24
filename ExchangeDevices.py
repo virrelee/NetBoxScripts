@@ -40,18 +40,12 @@ class ExchangeDevices(Script):
         newdevice.primary_ip4=oldevice.primary_ip4
         newdevice.tenant=oldevice.tenant
         newdevice.status=DeviceStatusChoices.STATUS_ACTIVE
-
-        ipa = IPAddress.objects.get(address="10.160.199.15/24")
-        ipa.assigned_object=newdevice
-        ipa.assigned_object_id=newdevice.id
+        newdeviceinterfaceId = Interface.objects.get(device=newdevice.id)
+        
+        ipa = IPAddress.objects.get(address=newdevice.primary_ip4)
+        ipa.assigned_object_type=Interface
+        ipa.assigned_object_id=newdeviceinterfaceId
         ipa.save()
-
-        #IP = IPAddress(
-           # address=f"{oldevice.primary_ip4}",
-          #  status=IPAddressStatusChoices.STATUS_ACTIVE,
-         #   assigned_object=newdevice
-        #
-       # )
     # Puts the old Device in inventory with right data    
         oldevice.name="OK"
         oldevice.device_role=DeviceRole.objects.get(name="Unknown")
