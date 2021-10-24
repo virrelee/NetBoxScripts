@@ -7,7 +7,7 @@ from extras.scripts import *
 class CpDevicesFromFile(Script):
 
     class Meta:
-        name= "Copy Devices From File         " #set 25 spaces total
+        name= "Creating the whole inventory from an new site" #set 25 spaces total
         description= "Copy data from old device to new device and put the old device in Inventory"
 
 
@@ -15,10 +15,9 @@ class CpDevicesFromFile(Script):
         excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE16.xlsx"
         df = pd.read_excel(excel_file, sheet_name="Switchar")
         #headers = df.columns
-        set_list=list()
+        
         class CreateInventory():
             def __init__(self,row):
-                print (row[12])
                 self.Kind_Of_Device_Tag=row[0]
                 self.DeviceType=row[1]
                 self.DeviceName=row[2]
@@ -35,17 +34,16 @@ class CpDevicesFromFile(Script):
 
 
 
-            
+            set_list=list()
             def CreateRegion(self):
                 
                 
                 if self.Region is nan:
                     return
-                if self.Region in set_list:
+                if Region.objects.filter(name=self.Region).exists():
                     return
                 else:
                     region=Region(name=self.Region,slug=slugify(self.Region))
-                    set_list.append(self.Region)
                     region.save()
                     
                 return (f"Region called {self.Region} has been created")
