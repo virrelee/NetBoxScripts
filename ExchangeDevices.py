@@ -27,7 +27,7 @@ class ExchangeDevices(Script):
         query_params= {"name": ["Inventory","Offline"]}
     )
     Inventory_Choice= ObjectVar(
-        description="Which kind of state do you wish to put the Old Device"
+        description="Which kind of state do you wish to put the Old Device",
         model=Device,
         query_params= {"Status":["Inventory","Offline"]}
     )
