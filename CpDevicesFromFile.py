@@ -100,7 +100,7 @@ class CpDevicesFromFile(Script):
                     name=siteObject.name,
                     slug=slugify(siteObject.name).lower(),
                     status=SiteStatusChoices.STATUS_ACTIVE,
-                    region=Region.objects.get(Name=siteObject.region),
+                    region=Region.objects.get(name=siteObject.region),
                     facility=siteObject.facility,
                     tenant=Site.object.get(name=siteObject.tenant),
                     physical_address=siteObject.physical_address,
