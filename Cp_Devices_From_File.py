@@ -8,9 +8,12 @@ excel_file = "Apparatlista_SE16.xlsx"
 set_list=list()
 
 class Cp_Devices_From_File(Script):
+    class Meta:
+        name= "Copy Devices From File         " #set 25 spaces total
+        description= "Copy data from old device to new device and put the old device in Inventory"
 
 
-    def run():
+    def run(self,data,commit):
         class CreateInventory():
             def __init__(self,row):
                 print (row[12])
