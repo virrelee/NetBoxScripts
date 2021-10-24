@@ -79,7 +79,7 @@ class CpDevicesFromFile(Script):
                     return
                 if tagsObject.name is None:
                     return
-                elif Tenant.objects.filter(name=tagsObject.name).exists():
+                elif Tag.objects.filter(name=tagsObject.name).exists():
                     return
                 else:
                     tags = Tag(name=tagsObject.name,slug=slugify(tagsObject.name).lower(),description=tagsObject.description)
