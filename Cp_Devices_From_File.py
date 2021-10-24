@@ -10,8 +10,11 @@ class Cp_Devices_FromFile(Script):
     class Meta:
         name= "Copy Devices From File         " #set 25 spaces total
         description= "Copy data from old device to new device and put the old device in Inventory"
+        field_order= ["Start"]
 
-
+    Start = StringVar(
+        name="type something and kick in the script"
+    )
     def run(self,data,commit):
         excel_file = "Apparatlista_SE16.xlsx"
         df = pd.read_excel(excel_file, sheet_name="Switchar")
