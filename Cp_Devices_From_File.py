@@ -1,5 +1,6 @@
 from dcim.models import Device,DeviceType,DeviceRole,Region,Site
 import pandas as pd
+#fuck you
 excel_file = "Apparatlista_SE16.xlsx"
 df = pd.read_excel(excel_file, sheet_name="Switchar")
 headers = df.columns
