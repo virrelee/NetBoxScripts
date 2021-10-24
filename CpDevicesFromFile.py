@@ -1,6 +1,7 @@
 from dcim.models import Device,DeviceType,DeviceRole,Region,Site
 import pandas as pd
 from numpy import nan
+from extras.scripts import *
 #fuck you
 class CpDevicesFromFile(Script):
 
@@ -17,6 +18,7 @@ class CpDevicesFromFile(Script):
         df = pd.read_excel(excel_file, sheet_name="Switchar")
         #headers = df.columns
         set_list=list()
+        x = data["Start"]
         class CreateInventory():
             def __init__(self,row):
                 print (row[12])
