@@ -116,7 +116,7 @@ class CpDevicesFromFile(Script):
                         self.log_success(f"Created New Site {siteObject.name}")
                         return (siteObject.name)
                     except ObjectDoesNotExist as error:
-                        self.log_warning(type(error))
+                        self.log_success(type(error))
                         pass
 
 
