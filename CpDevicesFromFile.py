@@ -24,7 +24,7 @@ class CpDevicesFromFile(Script):
 
         def slugify(slugish):
             slugname= slugish
-            randslug = str(randint(0,100000000000))
+            randslug = str(randint(0,1000))
             slugname+=randslug
             return slugname
         #headers = df.columns
