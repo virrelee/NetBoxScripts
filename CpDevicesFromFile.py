@@ -2,11 +2,13 @@
 from dcim.models import Device,DeviceType,DeviceRole,Region,Site
 from dcim.choices import SiteStatusChoices
 from tenancy.models import Tenant
+from django.core.exceptions import ObjectDoesNotExist
 import pandas as pd
 from random import randint
 from numpy import nan
 from extras.scripts import *
 from extras.models import Tag
+
 #fuck you
 class CpDevicesFromFile(Script):
 
@@ -96,7 +98,7 @@ class CpDevicesFromFile(Script):
                 elif Site.objects.filter(name=siteObject.name).exists():
                     return
                 else:
-                    
+                    try:
                         site = Site(
                         name=siteObject.name,
                         slug=slugify(siteObject.name).lower(),
@@ -113,6 +115,9 @@ class CpDevicesFromFile(Script):
                         site.save()
                         self.log_success(f"Created New Site {siteObject.name}")
                         return (siteObject.name)
+                    except ObjectDoesNotExist as error:
+                        self.log_error(error)
+                        pass
 
 
                     
