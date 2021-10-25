@@ -158,7 +158,7 @@ class CpDevicesFromFile(Script):
         TenantList=set()
         TagsList=set()
         SiteList=set()
-        df = df.replace(r'^\s*$', numpy.NaN, regex=True)
+        df = df.replace(r'^\s*$', numpy.nonzero, regex=True)
         for i in range(3):
         
         
