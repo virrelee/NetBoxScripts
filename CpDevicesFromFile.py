@@ -122,8 +122,8 @@ class CpDevicesFromFile(Script):
                             site.comments=siteObject.comments
                         site.save()
                         
-                        #latitude=siteObject.latitude,
-                        #longitude=siteObject.longitude,
+#latitude=siteObject.latitude,
+#longitude=siteObject.longitude,
                     
                         self.log_success(f"Created New Site {siteObject.name}")
                         return (siteObject.name)
