@@ -117,7 +117,7 @@ class CpDevicesFromFile(Script):
                         if siteObject.physical_address is not NaN:
                             site.physical_address=siteObject.physical_address
                         if siteObject.facility is not NaN:
-                            site.facility=siteObject.facility,
+                            site.facility=siteObject.facility
                         if siteObject.comments is not NaN:
                             site.comments=siteObject.comments
                         site.save()
