@@ -96,22 +96,25 @@ class CpDevicesFromFile(Script):
                 elif Site.objects.filter(name=siteObject.name).exists():
                     return
                 else:
-                    site = Site(
-                    name=siteObject.name,
-                    slug=slugify(siteObject.name).lower(),
-                    status=SiteStatusChoices.STATUS_ACTIVE,
-                    region=Region.objects.get(name=siteObject.region),
-                    facility=siteObject.facility,
-                    
-                    tenant=Tenant.objects.get(name=siteObject.tenant),
-                    physical_address=siteObject.physical_address,
-                    #latitude=siteObject.latitude,
-                    #longitude=siteObject.longitude,
-                    comments=siteObject.comments)
+                    try:
+                        site = Site(
+                        name=siteObject.name,
+                        slug=slugify(siteObject.name).lower(),
+                        status=SiteStatusChoices.STATUS_ACTIVE,
+                        region=Region.objects.get(name=siteObject.region),
+                        facility=siteObject.facility,
+                        
+                        tenant=Tenant.objects.get(name=siteObject.tenant),
+                        physical_address=siteObject.physical_address,
+                        #latitude=siteObject.latitude,
+                        #longitude=siteObject.longitude,
+                        comments=siteObject.comments)
 
-                    site.save()
-                    self.log_success(f"Created New Site {siteObject.name}")
-                    return (siteObject.name)
+                        site.save()
+                        self.log_success(f"Created New Site {siteObject.name}")
+                        return (siteObject.name)
+                    except:
+                        pass
 
                     
 
@@ -136,12 +139,12 @@ class CpDevicesFromFile(Script):
 
 
         class SiteTemplate():
-            def __init__(self,row,row2="Default"):
+            def __init__(self,row):
                 self.name=row["Fastighet"]
                 self.status=None
                 self.region=row["Ort"]
                 self.facility=row["Krafts anläggning"]
-                self.tenant=row2
+                self.tenant=row["Förvaltning"]
                 self.physical_address=row["Adress"]
                 self.latitude=row["GPS_LAT"]
                 self.longitude=row["GPS_LONG"]
