@@ -136,8 +136,6 @@ class CpDevicesFromFile(Script):
                     return
                 if rackObject.name is None:
                     return
-                elif Site.objects.filter(name=rackObject.name).exists():
-                    return
                 else:
                     try:
                         rack=Rack(
@@ -150,6 +148,11 @@ class CpDevicesFromFile(Script):
                             rack.region=Region.objects.get(name=rackObject.region)
                         if Tenant.objects.filter(name=rackObject.tenant).exists():
                             rack.tenant=Tenant.objects.get(name=rackObject.tenant)
+                        if Site.objects.filter(name=rackObject.site).exists():
+                            if Rack.objects.filter(site=rackObject.site).exists():
+                                return
+                            else:
+                                rack.site=Site.objects.filter(name=rackObject.site)
                         if rackObject.facility_id is not NaN:
                             rack.facility_id=rackObject.facility_id
                         if rackObject.facility_id is not NaN:
