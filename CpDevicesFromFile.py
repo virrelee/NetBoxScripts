@@ -1,7 +1,7 @@
 
 import numpy
-from dcim.models import Device,DeviceType,DeviceRole,Region,Site
-from dcim.choices import SiteStatusChoices
+from dcim.models import Device,DeviceType,DeviceRole,Region,Site,Rack
+from dcim.choices import SiteStatusChoices, RackStatusChoices
 from tenancy.models import Tenant
 from django.core.exceptions import ObjectDoesNotExist
 import pandas as pd
@@ -102,7 +102,6 @@ class CpDevicesFromFile(Script):
                     try:
                         site=Site(
                             name=siteObject.name,
-                            slug=slugify(siteObject.name).lower(),
                             status=SiteStatusChoices.STATUS_ACTIVE,
 
 
@@ -132,6 +131,39 @@ class CpDevicesFromFile(Script):
 
 
                     
+            def CreateRack(rackObject):
+                if rackObject.name is nan:
+                    return
+                if rackObject.name is None:
+                    return
+                elif Site.objects.filter(name=rackObject.name).exists():
+                    return
+                else:
+                    try:
+                        rack=Rack(
+                            name=rackObject.name,
+                            status=RackStatusChoices.STATUS_ACTIVE
+                            )
+
+
+                        if Region.objects.filter(name=rackObject.region).exists():
+                            rack.region=Region.objects.get(name=rackObject.region)
+                        if Tenant.objects.filter(name=rackObject.tenant).exists():
+                            rack.tenant=Tenant.objects.get(name=rackObject.tenant)
+                        if rackObject.facilicy_id is not NaN:
+                            rack.facility_id=rackObject.facility_id
+                        if rackObject.facility is not NaN:
+                            rack.facility=rackObject.facility
+                        if rackObject.comments is not NaN:
+                            rack.comments=rackObject.comments
+                        rack.save()
+                        
+                    
+                        self.log_success(f"Created New Rack {siteObject.name}")
+                        return (siteObject.name)
+                    except ObjectDoesNotExist as error:
+                        pass
+                
 
 
             
@@ -152,6 +184,15 @@ class CpDevicesFromFile(Script):
         class CustomFieldsTemplate():
             pass
 
+        class RackTemplate():
+            def __init__(self,row):
+                self.name=row["Ställ"]
+                self.region=row["Ort"]
+                self.site=row["Fastighet"]
+                self.status=None
+                self.facility_id=row["Krafts anläggning"]
+                self.Tenant=row["Förvaltning"]
+                self.comments=[row["Plan"],row["Rum"],row["Anmärkning"]]
 
         class SiteTemplate():
             def __init__(self,row):
@@ -169,6 +210,7 @@ class CpDevicesFromFile(Script):
         TenantList=set()
         TagsList=set()
         SiteList=set()
+        RackList=set()
         df = df.replace(r'^\s*$', "default", regex=True)
         for i in range(3):
         
@@ -179,22 +221,26 @@ class CpDevicesFromFile(Script):
                     RegionObject = RegionTemplate(row[12])
                     TenantObject = TenantTemplate(row[10])
                     tagsObject = TagsTemplate(row[4],row[5])
+                    
                 
-                    RegionOutput = CreateInventory.CreateRegion(RegionObject)
-                    TenantOutput =  CreateInventory.CreateTenant(TenantObject)
-                    TagsOutput = CreateInventory.CreateTags(tagsObject)
+                    regionOutput = CreateInventory.CreateRegion(RegionObject)
+                    tenantOutput =  CreateInventory.CreateTenant(TenantObject)
+                    tagsOutput = CreateInventory.CreateTags(tagsObject)
                 
                 
-                    RegionList.add(str(RegionOutput))
-                    TenantList.add(str(TenantOutput))
-                    TagsList.add(str(TagsOutput))
+                    RegionList.add(str(regionOutput))
+                    TenantList.add(str(tenantOutput))
+                    TagsList.add(str(tagsOutput))
                 
                 if i == 1:
                     siteObject = SiteTemplate(row)
+                    rackObject = RackTemplate(row)
 
                     SiteOutput = CreateInventory.CreateSite(siteObject)
+                    RackOutput = CreateInventory.CreateRack(rackObject)
 
                     SiteList.add(str(SiteOutput))
+                    RackList.add(str(RackOutput))
                 
                 
                 
@@ -209,6 +255,8 @@ class CpDevicesFromFile(Script):
         RegionList.remove("None")
         TenantList.remove("None")
         TagsList.remove("None")
+        SiteList.remove("None")
+        RackList.remove("None")
             
 
 
@@ -231,11 +279,15 @@ class CpDevicesFromFile(Script):
         Output = f""" 
         Region: {",".join(RegionList)}
 
-
         Tenant: {",".join(TenantList)}
 
-
         Tags: {",".join(TagsList)}
+
+        Site: {",".join(SiteList)}
+
+        Racks: {",".join(RackList)}
+
+
         """
         return Output
 
