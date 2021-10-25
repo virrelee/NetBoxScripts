@@ -226,9 +226,9 @@ class CpDevicesFromFile(Script):
                 self.name=row
 
         class Manufacturures():
+            pass
 
         
-        class 
 
         RegionList=set()
         TenantList=set()
