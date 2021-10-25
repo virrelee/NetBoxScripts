@@ -1,11 +1,12 @@
 
+import numpy
 from dcim.models import Device,DeviceType,DeviceRole,Region,Site
 from dcim.choices import SiteStatusChoices
 from tenancy.models import Tenant
 from django.core.exceptions import ObjectDoesNotExist
 import pandas as pd
 from random import randint
-from numpy import nan
+from numpy import nan,NaN
 from extras.scripts import *
 from extras.models import Tag
 
@@ -157,7 +158,7 @@ class CpDevicesFromFile(Script):
         TenantList=set()
         TagsList=set()
         SiteList=set()
-        
+        df = df.replace(r'^\s*$', numpy.NaN, regex=True)
         for i in range(3):
         
         
