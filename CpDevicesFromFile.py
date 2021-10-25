@@ -141,7 +141,7 @@ class CpDevicesFromFile(Script):
                         rack=Rack(
                             name=rackObject.name,
                             status=RackStatusChoices.STATUS_ACTIVE,
-                            slug=slugify(rackObject.name).lower()
+                        
                             )
 
 
