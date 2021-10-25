@@ -96,7 +96,7 @@ class CpDevicesFromFile(Script):
                 elif Site.objects.filter(name=siteObject.name).exists():
                     return
                 else:
-                    try:
+                    
                         site = Site(
                         name=siteObject.name,
                         slug=slugify(siteObject.name).lower(),
@@ -113,8 +113,7 @@ class CpDevicesFromFile(Script):
                         site.save()
                         self.log_success(f"Created New Site {siteObject.name}")
                         return (siteObject.name)
-                    except:
-                        pass
+
 
                     
 
