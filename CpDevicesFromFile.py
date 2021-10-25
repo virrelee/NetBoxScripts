@@ -136,12 +136,12 @@ class CpDevicesFromFile(Script):
 
 
         class SiteTemplate():
-            def __init__(self,row,*args="Default"):
+            def __init__(self,row,row2="Default"):
                 self.name=row["Fastighet"]
                 self.status=None
                 self.region=row["Ort"](default="")
                 self.facility=row["Krafts anläggning"]
-                self.tenant=row["Förvaltning"]
+                self.tenant=row2
                 self.physical_address=row["Adress"]
                 self.latitude=row["GPS_LAT"]
                 self.longitude=row["GPS_LONG"]
@@ -172,7 +172,7 @@ class CpDevicesFromFile(Script):
                     TagsList.add(str(TagsOutput))
                 
                 if i == 1:
-                    siteObject = SiteTemplate(row,row["Förvaltning"])
+                    siteObject = SiteTemplate(row,row["Förvaltning"],)
 
                     SiteOutput = CreateInventory.CreateSite(siteObject)
 
