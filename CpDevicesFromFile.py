@@ -150,10 +150,10 @@ class CpDevicesFromFile(Script):
                             rack.region=Region.objects.get(name=rackObject.region)
                         if Tenant.objects.filter(name=rackObject.tenant).exists():
                             rack.tenant=Tenant.objects.get(name=rackObject.tenant)
-                        if rackObject.facilicy_id is not NaN:
+                        if rackObject.facility_id is not NaN:
                             rack.facility_id=rackObject.facility_id
-                        if rackObject.facility is not NaN:
-                            rack.facility=rackObject.facility
+                        if rackObject.facility_id is not NaN:
+                            rack.facility_id=rackObject.facility_id
                         if rackObject.comments is not NaN:
                             rack.comments=rackObject.comments
                         rack.save()
