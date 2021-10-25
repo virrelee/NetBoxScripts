@@ -147,9 +147,11 @@ class CpDevicesFromFile(Script):
 
                         if Region.objects.filter(name=rackObject.region).exists():
                             rack.region=Region.objects.get(name=rackObject.region)
+
                         if Tenant.objects.filter(name=rackObject.tenant).exists():
                             rack.tenant=Tenant.objects.get(name=rackObject.tenant)
-                        Rack_ID = Site.objects.filter(name=rackObject.site).id()
+
+                        Rack_ID = Site.objects.get(name=rackObject.site).id()
                         if Site.objects.filter(name=rackObject.site).exists():
                             if Rack.objects.filter(site=Rack_ID).exists():
                                 return
