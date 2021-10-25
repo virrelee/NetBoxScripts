@@ -104,9 +104,7 @@ class CpDevicesFromFile(Script):
                             name=siteObject.name,
                             slug=slugify(siteObject.name).lower(),
                             status=SiteStatusChoices.STATUS_ACTIVE,
-                            physical_address=siteObject.physical_address,
-                            facility=siteObject.facility,
-                            comments=siteObject.comments
+
 
                            
                             )
@@ -116,13 +114,17 @@ class CpDevicesFromFile(Script):
                             site.region=Region.objects.get(name=siteObject.region)
                         if Tenant.objects.filter(name=siteObject.tenant).exists():
                             site.tenant=Tenant.objects.get(name=siteObject.tenant)
+                        if siteObject.physical_address is not NaN:
+                            site.physical_address=siteObject.physical_address
+                        if siteObject.facility is not NaN:
+                            site.facility=siteObject.facility,
+                        if siteObject.commentis is not NaN:
+                            site.comments=siteObject.comments
                         site.save()
                         
                         #latitude=siteObject.latitude,
                         #longitude=siteObject.longitude,
-                        
-
-                        site.save(j)
+                    
                         self.log_success(f"Created New Site {siteObject.name}")
                         return (siteObject.name)
                     except ObjectDoesNotExist as error:
