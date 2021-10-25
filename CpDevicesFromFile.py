@@ -139,7 +139,7 @@ class CpDevicesFromFile(Script):
             def __init__(self,row,row2="Default"):
                 self.name=row["Fastighet"]
                 self.status=None
-                self.region=row["Ort"](default="")
+                self.region=row["Ort"]
                 self.facility=row["Krafts anläggning"]
                 self.tenant=row2
                 self.physical_address=row["Adress"]
