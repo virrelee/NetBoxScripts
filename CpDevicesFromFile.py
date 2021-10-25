@@ -102,6 +102,7 @@ class CpDevicesFromFile(Script):
                     status=SiteStatusChoices.STATUS_ACTIVE,
                     region=Region.objects.get(name=siteObject.region),
                     facility=siteObject.facility,
+                    
                     tenant=Tenant.objects.get(name=siteObject.tenant),
                     physical_address=siteObject.physical_address,
                     #latitude=siteObject.latitude,
@@ -135,10 +136,10 @@ class CpDevicesFromFile(Script):
 
 
         class SiteTemplate():
-            def __init__(self,row):
+            def __init__(self,row,*args="Default"):
                 self.name=row["Fastighet"]
                 self.status=None
-                self.region=row["Ort"]
+                self.region=row["Ort"](default="")
                 self.facility=row["Krafts anläggning"]
                 self.tenant=row["Förvaltning"]
                 self.physical_address=row["Adress"]
@@ -171,7 +172,7 @@ class CpDevicesFromFile(Script):
                     TagsList.add(str(TagsOutput))
                 
                 if i == 1:
-                    siteObject = SiteTemplate(row)
+                    siteObject = SiteTemplate(row,row["Förvaltning"])
 
                     SiteOutput = CreateInventory.CreateSite(siteObject)
 
