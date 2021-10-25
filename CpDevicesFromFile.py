@@ -175,7 +175,7 @@ class CpDevicesFromFile(Script):
                     TagsList.add(str(TagsOutput))
                 
                 if i == 1:
-                    siteObject = SiteTemplate(row,row["Förvaltning"],)
+                    siteObject = SiteTemplate(row)
 
                     SiteOutput = CreateInventory.CreateSite(siteObject)
 
