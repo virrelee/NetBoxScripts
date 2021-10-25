@@ -112,9 +112,9 @@ class CpDevicesFromFile(Script):
                             )
 
 
-                        if Region.objects.get(name=siteObject.region).exists():
+                        if Region.objects.filter(name=siteObject.region).exists():
                             site.region=Region.objects.get(name=siteObject.region)
-                        if Tenant.objects.get(name=siteObject.tenant).exists():
+                        if Tenant.objects.filter(name=siteObject.tenant).exists():
                             site.tenant=Tenant.objects.get(name=siteObject.tenant)
                         site.save()
                         
