@@ -100,20 +100,29 @@ class CpDevicesFromFile(Script):
                     return
                 else:
                     try:
-                        site = Site(
-                        name=siteObject.name,
-                        slug=slugify(siteObject.name).lower(),
-                        status=SiteStatusChoices.STATUS_ACTIVE,
-                        region=Region.objects.get(name=siteObject.region),
-                        facility=siteObject.facility,
+                        site=Site(
+                            name=siteObject.name,
+                            slug=slugify(siteObject.name).lower(),
+                            status=SiteStatusChoices.STATUS_ACTIVE,
+                            physical_address=siteObject.physical_address,
+                            facility=siteObject.facility,
+                            comments=siteObject.comments
+
+                           
+                            )
+
+
+                        if Region.Object.get(name=siteObject.region).exists():
+                            region=Region.objects.get(name=siteObject.region)
+                        if Tenant.objects.get(name=siteObject.tenant).exists():
+                            tenant=Tenant.objects.get(name=siteObject.tenant)
+                        site.save()
                         
-                        tenant=Tenant.objects.get(name=siteObject.tenant),
-                        physical_address=siteObject.physical_address,
                         #latitude=siteObject.latitude,
                         #longitude=siteObject.longitude,
-                        comments=siteObject.comments)
+                        
 
-                        site.save()
+                        site.save(j)
                         self.log_success(f"Created New Site {siteObject.name}")
                         return (siteObject.name)
                     except ObjectDoesNotExist as error:
