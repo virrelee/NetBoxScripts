@@ -24,24 +24,12 @@ class CpDevicesFromFile(Script):
 
         def slugify(slugish):
             slugname= slugish
-            randslug = str(randint(0,100000))
+            randslug = str(randint(0,100000000000))
             slugname+=randslug
             return slugname
         #headers = df.columns
         
         class CreateInventory():
-            # def __init__(self,row):
-            #     self.Kind_Of_Device_Tag=row[0]
-            #     self.DeviceType=row[1]
-            #     self.DeviceName=row[2]
-            #     self.DeviceStatus=row[3]
-            #     self.SLA_tag=row[4]
-            #     self.SLA_Time_tag=row[5]
-            #     self.ImplementationDate=row[7]
-            #     self.RIR=row[8]
-            #     self.IPAddr=row[9]
-            #     self.Tenant=row[10]
-            #     self.Region=row[12]
 
 
 
@@ -103,7 +91,7 @@ class CpDevicesFromFile(Script):
                         site=Site(
                             name=siteObject.name,
                             status=SiteStatusChoices.STATUS_ACTIVE,
-
+                            slug=slugify(siteObject.name).lower()
 
                            
                             )
@@ -152,7 +140,8 @@ class CpDevicesFromFile(Script):
                     try:
                         rack=Rack(
                             name=rackObject.name,
-                            status=RackStatusChoices.STATUS_ACTIVE
+                            status=RackStatusChoices.STATUS_ACTIVE,
+                            slug=slugify(rackObject.name).lower()
                             )
 
 
@@ -231,6 +220,15 @@ class CpDevicesFromFile(Script):
                 self.latitude=row["GPS_LAT"]
                 self.longitude=row["GPS_LONG"]
                 self.comments=row["Hus"]
+        
+        class Device_Type():
+            def __init__(self,row):
+                self.name=row
+
+        class Manufacturures():
+
+        
+        class 
 
         RegionList=set()
         TenantList=set()
