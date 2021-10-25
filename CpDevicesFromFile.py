@@ -111,14 +111,24 @@ class CpDevicesFromFile(Script):
 
                         if Region.objects.filter(name=siteObject.region).exists():
                             site.region=Region.objects.get(name=siteObject.region)
+
+
                         if Tenant.objects.filter(name=siteObject.tenant).exists():
                             site.tenant=Tenant.objects.get(name=siteObject.tenant)
+
+
                         if siteObject.physical_address is not NaN:
                             site.physical_address=siteObject.physical_address
+
+
                         if siteObject.facility is not NaN:
                             site.facility=siteObject.facility
+
+
                         if siteObject.comments is not NaN:
                             site.comments=siteObject.comments
+
+
                         site.save()
                         
 #latitude=siteObject.latitude,
@@ -134,6 +144,7 @@ class CpDevicesFromFile(Script):
             def CreateRack(rackObject):
                 if rackObject.name is nan:
                     return
+
                 if rackObject.name is None:
                     return
                 else:
@@ -147,9 +158,11 @@ class CpDevicesFromFile(Script):
 
                         if Region.objects.filter(name=rackObject.region).exists():
                             rack.region=Region.objects.get(name=rackObject.region)
+                            
 
                         if Tenant.objects.filter(name=rackObject.tenant).exists():
                             rack.tenant=Tenant.objects.get(name=rackObject.tenant)
+
 
                         Rack_ID = Site.objects.get(name=rackObject.site).id
                         if Site.objects.filter(name=rackObject.site).exists():
@@ -157,17 +170,23 @@ class CpDevicesFromFile(Script):
                                 return
                             else:
                                 rack.site=Site.objects.get(name=rackObject.site)
+
+
                         if rackObject.facility_id is not NaN:
                             rack.facility_id=rackObject.facility_id
+
+
                         if rackObject.facility_id is not NaN:
                             rack.facility_id=rackObject.facility_id
+
+
                         if rackObject.comments is not NaN:
                             rack.comments=rackObject.comments
                         rack.save()
                         
                     
-                        self.log_success(f"Created New Rack {siteObject.name}")
-                        return (siteObject.name)
+                        self.log_success(f"Created New Rack {rackObject.name}")
+                        return (rackObject.name)
                     except ObjectDoesNotExist as error:
                         pass
                 
