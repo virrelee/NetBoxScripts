@@ -137,6 +137,7 @@ class CpDevicesFromFile(Script):
                 if rackObject.name is None:
                     return
                 else:
+                   
                     try:
                         rack=Rack(
                             name=rackObject.name,
@@ -148,8 +149,9 @@ class CpDevicesFromFile(Script):
                             rack.region=Region.objects.get(name=rackObject.region)
                         if Tenant.objects.filter(name=rackObject.tenant).exists():
                             rack.tenant=Tenant.objects.get(name=rackObject.tenant)
+                        Rack_ID = Site.objects.filter(name=rackObject.site).id()
                         if Site.objects.filter(name=rackObject.site).exists():
-                            if Rack.objects.filter(site=rackObject.site).exists():
+                            if Rack.objects.filter(site=Rack_ID).exists():
                                 return
                             else:
                                 rack.site=Site.objects.filter(name=rackObject.site)
