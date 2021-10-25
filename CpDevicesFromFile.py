@@ -191,7 +191,7 @@ class CpDevicesFromFile(Script):
                 self.site=row["Fastighet"]
                 self.status=None
                 self.facility_id=row["Krafts anläggning"]
-                self.Tenant=row["Förvaltning"]
+                self.tenant=row["Förvaltning"]
                 self.comments=[row["Plan"],row["Rum"],row["Anmärkning"]]
 
         class SiteTemplate():
