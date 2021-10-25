@@ -156,7 +156,7 @@ class CpDevicesFromFile(Script):
                             if Rack.objects.filter(site=Rack_ID).exists():
                                 return
                             else:
-                                rack.site=Site.objects.filter(name=rackObject.site)
+                                rack.site=Site.objects.get(name=rackObject.site)
                         if rackObject.facility_id is not NaN:
                             rack.facility_id=rackObject.facility_id
                         if rackObject.facility_id is not NaN:
