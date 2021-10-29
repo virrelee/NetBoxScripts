@@ -181,7 +181,17 @@ class CpDevicesFromFile(Script):
                 
 
 
-            
+            def CreateManufacturers(manufacturersObject):
+                if siteObject.name is nan:
+                    return
+
+                if siteObject.name is None:
+                    return
+
+                elif Site.objects.filter(name=siteObject.name).exists():
+                    return
+
+
         class RegionTemplate():
             def __init__(self,name):
                 self.name=name
@@ -226,7 +236,7 @@ class CpDevicesFromFile(Script):
                 self.name=row
 
         class Manufacturures():
-            def __init__(self,row[])
+            pass
 
         
 
@@ -252,6 +262,7 @@ class CpDevicesFromFile(Script):
                     regionOutput = CreateInventory.CreateRegion(RegionObject)
                     tenantOutput =  CreateInventory.CreateTenant(TenantObject)
                     tagsOutput = CreateInventory.CreateTags(tagsObject)
+                    manufactururesOutput = CreateInventory.CreateManu
                 
                 
                     RegionList.add(str(regionOutput))
