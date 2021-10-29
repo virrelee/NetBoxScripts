@@ -226,7 +226,7 @@ class CpDevicesFromFile(Script):
                 self.name=row
 
         class Manufacturures():
-            pass
+            def __init__(self,row[])
 
         
 
@@ -235,6 +235,7 @@ class CpDevicesFromFile(Script):
         TagsList=set()
         SiteList=set()
         RackList=set()
+        ManufacturersList=set()
         df = df.replace(r'^\s*$', "default", regex=True)
         for i in range(3):
         
@@ -245,6 +246,7 @@ class CpDevicesFromFile(Script):
                     RegionObject = RegionTemplate(row[12])
                     TenantObject = TenantTemplate(row[10])
                     tagsObject = TagsTemplate(row[4],row[5])
+                    manufactururesObject= Manufacturures(row["Fabrikat"])
                     
                 
                     regionOutput = CreateInventory.CreateRegion(RegionObject)
