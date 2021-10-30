@@ -24,7 +24,7 @@ class CpDevicesFromFile(Script):
 
         def slugify(slugish):
             slugname= slugish
-            randslug = str(randint(0,1000))
+            randslug = str(randint(0,10000))
             slugname+=randslug
             return slugname
         
