@@ -234,6 +234,28 @@ class CpDevicesFromFile(Script):
                 return deviceRoleObject.name
 
 
+            def CreateDeviceType(deviceTypeObject):
+                if deviceTypeObject.name is nan:
+                    return
+
+                if deviceTypeObject.name is None:
+                    return
+
+                elif DeviceType.objects.filter(name=deviceTypeObject.name).exists():
+                    return
+
+                else:
+                    devicetype = DeviceType(
+                        model=deviceTypeObject.name,
+                        slug= slugify(deviceTypeObject.name).lower(),
+                        manufacturer= deviceTypeObject.manufacturer
+                    )
+
+                self.log_success(f"Created DeviceType {deviceTypeObject.name}")
+                devicetype.save()
+                return deviceTypeObject.name
+
+
         class RegionTemplate():
             def __init__(self,name):
                 self.name=name
@@ -274,8 +296,9 @@ class CpDevicesFromFile(Script):
                 self.comments=row["Hus"]
         
         class DeviceTypeTemplate():
-            def __init__(self,row):
-                self.name=row
+            def __init__(self,row_model,row_manufacturer):
+                self.model=row
+                self.manufacturer=row
 
         class ManufacturersTemplate():
             def __init__(self,row):
@@ -294,6 +317,7 @@ class CpDevicesFromFile(Script):
         RackList=set()
         ManufacturersList=set()
         DeviceRoleList=set()
+        DeviceTypeList=set()
         df = df.replace(r'^\s*$', "default", regex=True)
         for i in range(3):
         
@@ -323,12 +347,15 @@ class CpDevicesFromFile(Script):
                 if i == 1:
                     siteObject = SiteTemplate(row)
                     rackObject = RackTemplate(row)
+                    deviceTypeObject = DeviceTypeTemplate(row["Hårdvara",row["Fabrikat"]])
 
                     SiteOutput = CreateInventory.CreateSite(siteObject)
                     RackOutput = CreateInventory.CreateRack(rackObject)
+                    DeviceTypeOutput = CreateInventory.CreateDeviceType(deviceTypeObject)
 
                     SiteList.add(str(SiteOutput))
                     RackList.add(str(RackOutput))
+                    DeviceTypeList.add(str(DeviceTypeOutput))
                 
                 
                 
@@ -347,7 +374,7 @@ class CpDevicesFromFile(Script):
         RackList.remove("None")
         ManufacturersList.remove("None")
         DeviceRoleList.remove("None")
-            
+        DeviceTypeList.remove("None")
 
 
 
@@ -379,7 +406,9 @@ class CpDevicesFromFile(Script):
 
         Manufacturers: {",".join(ManufacturersList)}
 
-        DeviceRole: {",".join(ManufacturersList)}
+        DeviceRole: {",".join(DeviceRoleList)}
+
+        DeviceType: {",".join(DeviceTypeList)}
 
 
         """
