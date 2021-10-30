@@ -261,7 +261,13 @@ class CpDevicesFromFile(Script):
 
             def CreateDevice(deviceObject):
                 if deviceObject.name is nan:
-                    return
+                    device = Device(
+                        name="OK",
+                        device_type=DeviceType.objects.get(model=deviceObject.devicetype),
+                        device_role=DeviceRole.objects.get(name="Unknown"),
+                        site=Site.objects.get(name="Inventory")
+                    )
+                    
 
                 if deviceObject.name is None:
                     return
