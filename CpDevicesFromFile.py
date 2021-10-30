@@ -290,6 +290,7 @@ class CpDevicesFromFile(Script):
                     dubbeldevice= Device.objects.get(name=deviceObject.name)
                     dubbeldevice.name=f"{dubbeldevice.name}-2"
                     dubbeldevice.save()
+                    pass
 
                 else:
                     device = Device(
