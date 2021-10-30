@@ -241,7 +241,7 @@ class CpDevicesFromFile(Script):
                 if deviceTypeObject.model is None:
                     return
 
-                elif DeviceType.objects.filter(name=deviceTypeObject.model).exists():
+                elif DeviceType.objects.filter(model=deviceTypeObject.model).exists():
                     return
 
                 else:
