@@ -27,9 +27,7 @@ class CpDevicesFromFile(Script):
                 slugname= slugish
                 randslug = str(randint(0,1000))
                 slugname+=randslug
-                if Device.objects.filter(asset_tag=slugname).exists():
-                    continue
-                else:
+                if Device.objects.filter(asset_tag=slugname).exists() == False:
                     break
             return slugname
         
@@ -339,8 +337,8 @@ class CpDevicesFromFile(Script):
                     if deviceObject.tenant is not nan:
                         device.tenant=Tenant.objects.get(name=deviceObject.tenant)
 
-                    if deviceObject.tags is not nan:
-                        device.tags=Tag.objects.get(name=deviceObject.tags)
+                    #if deviceObject.tags is not nan:
+                        #device.tags=Tag.objects.get(name=deviceObject.tags)
                     
 
                         
