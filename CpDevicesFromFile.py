@@ -310,7 +310,8 @@ class CpDevicesFromFile(Script):
                         device.site=Site.objects.get(name=deviceObject.site)    
                     else:
                         try:
-                            device.site=Rack.objects.get(name=deviceObject.rack).site
+                            Rack_id = Site.objects.get(name=device.site).id
+                            device.site=Rack.objects.filter(name=deviceObject.rack).get(site=Rack_id).site
                         except ObjectDoesNotExist:
                             device.site=Site.objects.get(name="Unknown")
 
