@@ -283,26 +283,36 @@ class CpDevicesFromFile(Script):
                         device.device_role=DeviceRole.objects.get(name=deviceObject.devicerole)
                     else:
                         device.device_role=DeviceRole.objects.get(name="Unknown")
+
                     if deviceObject.manufacturer is not nan:
                         device.manufacturer=Manufacturer.objects.get(name=deviceObject.manufacturer)
+
                     if deviceObject.devicetype is not nan:    
                         device.device_type=DeviceType.objects.get(model=deviceObject.devicetype)
+
                     if deviceObject.serial is not nan:
                         device.serial=deviceObject.serial
+
                     if deviceObject.asset_tag is not nan:
                         device.asset_tag=deviceObject.serial
+
                     if deviceObject.region is not nan:
                         device.region=Region.objects.get(name=deviceObject.region)
+
                     if deviceObject.site is not nan:
-                        device.site=Site.objects.get(name=deviceObject.site)
+                        device.site=Site.objects.get(name=deviceObject.site)    
                     else:
                         device.site=Site.objects.get(name="Unknown")
+
                     if deviceObject.rack is not nan:
                         device.rack=Rack.objects.get(name=deviceObject.rack)
+
                     if deviceObject.status is not nan:
                         device.status=DeviceStatusChoices.STATUS_ACTIVE
+
                     if deviceObject.tenant is not nan:
                         device.tenant=Tenant.objects.get(name=deviceObject.tenant)
+
                     if deviceObject.tags is not nan:
                         device.tags=Tag.objects.get(name=deviceObject.tags)
                     
@@ -310,9 +320,9 @@ class CpDevicesFromFile(Script):
                         
                     
 
-                self.log_success(f"Created Device {deviceObject.name}")
+                self.log_success(f"Created Device {device.name}")
                 device.save()
-                return deviceObject.name
+                return device.name
 
 
         class RegionTemplate():
