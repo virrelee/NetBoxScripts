@@ -247,7 +247,7 @@ class CpDevicesFromFile(Script):
                 else:
                     devicetype = DeviceType(
                         model=deviceTypeObject.model,
-                        slug= slugify(deviceTypeObject.name).lower(),
+                        slug= slugify(deviceTypeObject.manufacturer).lower(),
                         manufacturer= deviceTypeObject.manufacturer
                     )
 
