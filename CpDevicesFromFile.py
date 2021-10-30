@@ -213,6 +213,26 @@ class CpDevicesFromFile(Script):
                 manufacturers.save()
                 return manufacturersObject.name
 
+            def CreateDeviceRole(deviceRoleObject):
+                if deviceRoleObject.name is nan:
+                    return
+
+                if deviceRoleObject.name is None:
+                    return
+
+                elif DeviceRole.objects.filter(name=deviceRoleObject.name).exists():
+                    return
+
+                else:
+                    devicerole = DeviceRole(
+                        name=deviceRoleObject.name,
+                        slug= slugify(deviceRoleObject.name).lower()
+                    )
+
+                self.log_success(f"Created DeviceRole {deviceRoleObject.name}")
+                devicerole.save()
+                return deviceRoleObject.name
+
 
         class RegionTemplate():
             def __init__(self,name):
@@ -253,11 +273,15 @@ class CpDevicesFromFile(Script):
                 self.longitude=row["GPS_LONG"]
                 self.comments=row["Hus"]
         
-        class Device_Type():
+        class DeviceTypeTemplate():
             def __init__(self,row):
                 self.name=row
 
-        class Manufacturers():
+        class ManufacturersTemplate():
+            def __init__(self,row):
+                self.name=row
+        
+        class DeviceRoleTemplate():
             def __init__(self,row):
                 self.name=row
 
@@ -269,6 +293,7 @@ class CpDevicesFromFile(Script):
         SiteList=set()
         RackList=set()
         ManufacturersList=set()
+        DeviceRoleList=set()
         df = df.replace(r'^\s*$', "default", regex=True)
         for i in range(3):
         
@@ -279,19 +304,21 @@ class CpDevicesFromFile(Script):
                     RegionObject = RegionTemplate(row[12])
                     TenantObject = TenantTemplate(row[10])
                     tagsObject = TagsTemplate(row[4],row[5])
-                    manufacturersObject= Manufacturers(row["Fabrikat"])
-                    
+                    manufacturersObject= ManufacturersTemplate(row["Fabrikat"])
+                    deviceRoleObject = DeviceRoleTemplate(row["Licens Typ"])
                 
                     regionOutput = CreateInventory.CreateRegion(RegionObject)
                     tenantOutput =  CreateInventory.CreateTenant(TenantObject)
                     tagsOutput = CreateInventory.CreateTags(tagsObject)
                     manufacturersOutput = CreateInventory.CreateManufacturers(manufacturersObject)
-                
+                    deviceRoleOutput = CreateInventory.CreateDeviceRole(deviceRoleObject)
                 
                     RegionList.add(str(regionOutput))
                     TenantList.add(str(tenantOutput))
                     TagsList.add(str(tagsOutput))
                     ManufacturersList.add(str(manufacturersOutput))
+                    DeviceRoleList.add(str(deviceRoleOutput))
+                    
                 
                 if i == 1:
                     siteObject = SiteTemplate(row)
@@ -319,6 +346,7 @@ class CpDevicesFromFile(Script):
         SiteList.remove("None")
         RackList.remove("None")
         ManufacturersList.remove("None")
+        DeviceRoleList.remove("None")
             
 
 
@@ -350,6 +378,8 @@ class CpDevicesFromFile(Script):
         Racks: {",".join(RackList)}
 
         Manufacturers: {",".join(ManufacturersList)}
+
+        DeviceRole: {",".join(ManufacturersList)}
 
 
         """
