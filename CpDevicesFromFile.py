@@ -19,7 +19,7 @@ class CpDevicesFromFile(Script):
 
 
     def run(self,data,commit):
-        excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE16.xlsx"
+        excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE15.xlsx"
         df = pd.read_excel(excel_file, sheet_name="Switchar")
 
         def slugify(slugish):
