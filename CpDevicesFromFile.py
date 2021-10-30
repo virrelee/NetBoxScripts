@@ -27,14 +27,13 @@ class CpDevicesFromFile(Script):
             randslug = str(randint(0,1000))
             slugname+=randslug
             return slugname
-        #headers = df.columns
         
+
+
+
         class CreateInventory():
 
-
-
             def CreateRegion(regionObject):
-                
                 
                 if regionObject.name is nan:
                     return
@@ -49,7 +48,9 @@ class CpDevicesFromFile(Script):
                     
                     return (regionObject.name)
             
-            
+
+
+
             def CreateTenant(tenantObject):
                 if tenantObject.name is nan:
                     return
@@ -65,7 +66,10 @@ class CpDevicesFromFile(Script):
                     self.log_success(f"Created New Tenant {tenantObject.name}")
                     return (tenantObject.name)
 
-            
+
+
+
+
             def CreateTags(tagsObject):
                 if tagsObject.name is nan:
                     return
@@ -78,6 +82,9 @@ class CpDevicesFromFile(Script):
                     tags.save()
                     self.log_success(f"Created New Tag {tagsObject.name}")
                     return (tagsObject.name)
+
+
+
 
             def CreateSite(siteObject):
                 if siteObject.name is nan:
@@ -126,6 +133,8 @@ class CpDevicesFromFile(Script):
                         return (siteObject.name)
                     except ObjectDoesNotExist as error:
                         pass
+
+
 
 
                     
@@ -181,6 +190,9 @@ class CpDevicesFromFile(Script):
                 
 
 
+
+
+
             def CreateManufacturers(manufacturersObject):
                 if manufacturersObject.name is nan:
                     return
@@ -190,6 +202,7 @@ class CpDevicesFromFile(Script):
 
                 elif Manufacturer.objects.filter(name=manufacturersObject.name).exists():
                     return
+
                 else:
                     manufacturers = Manufacturer(
                         name=manufacturersObject.name,
