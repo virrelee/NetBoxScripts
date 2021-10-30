@@ -347,7 +347,7 @@ class CpDevicesFromFile(Script):
                 if i == 1:
                     siteObject = SiteTemplate(row)
                     rackObject = RackTemplate(row)
-                    deviceTypeObject = DeviceTypeTemplate(row["Hårdvara",row["Fabrikat"]])
+                    deviceTypeObject = DeviceTypeTemplate(row["Hårdvara"],row["Fabrikat"])
 
                     SiteOutput = CreateInventory.CreateSite(siteObject)
                     RackOutput = CreateInventory.CreateRack(rackObject)
