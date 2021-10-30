@@ -266,16 +266,14 @@ class CpDevicesFromFile(Script):
                         device_type=DeviceType.objects.get(model=deviceObject.devicetype),
                         device_role=DeviceRole.objects.get(name="Unknown"),
                         site=Site.objects.get(name="Inventory"),
-                        status=DeviceStatusChoices.STATUS_INVENTORY,
-                        serial=deviceObject.serial,
-                        
+                        status=DeviceStatusChoices.STATUS_INVENTORY, 
                         
                     )
                     if deviceObject.asset_tag is not nan:
-
+                        device.serial=deviceObject.serial
                         device.asset_tag=deviceObject.serial
                     else:
-                        device.asset_tag=slugify(deviceObject.manufacturer)
+                        device.asset_tag=slugify(deviceObject.manufacturer).lower()
 
                     self.log_success(f"Created Device {device.name}")
                     device.save()
@@ -309,7 +307,7 @@ class CpDevicesFromFile(Script):
                     if deviceObject.asset_tag is not nan:
                         device.asset_tag=deviceObject.serial
                     else:
-                        device.asset_tag=slugify(deviceObject.manufacturer)
+                        device.asset_tag=slugify(deviceObject.manufacturer).lower()
 
                     if deviceObject.region is not nan:
                         device.region=Region.objects.get(name=deviceObject.region)
@@ -407,8 +405,8 @@ class CpDevicesFromFile(Script):
                 self.tags=row["SLA Nivå"]
                 self.manufacturer=row["Fabrikat"]
                 self.devicetype=row["Hårdvara"]
-                self.serial=str(row["SN"])
-                self.asset_tag=str(row["SN"])
+                self.serial=row["SN"]
+                self.asset_tag=row["SN"]
                 self.region=row["Ort"]
                 self.site=row["Fastighet"]
                 self.rack=row["Ställ"]
