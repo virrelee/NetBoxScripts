@@ -278,8 +278,11 @@ class CpDevicesFromFile(Script):
                 else:
                     device = Device(
                         name=deviceObject.name,
-                        device_role=DeviceRole.objects.get(name=deviceObject.devicerole),
                         tags=Tag.objects.get(name=deviceObject.tags))
+                    if deviceObject.devicerole is not nan:
+                        device.device_role=DeviceRole.objects.get(name=deviceObject.devicerole)
+                    else:
+                        device.device_role=DeviceRole.objects.get(name="Unknown")
                     if deviceObject.manufacturer is not nan:
                         device.manufacturer=Manufacturer.objects.get(name=deviceObject.manufacturer)
                     if deviceObject.devicetype is not nan:    
