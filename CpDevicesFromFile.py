@@ -263,7 +263,7 @@ class CpDevicesFromFile(Script):
 
 
             def CreateDevice(deviceObject):
-                if deviceObject.name is nan or deviceObject.name.upper() is "OK" or deviceObject.name.upper() is "LAGER" :
+                if deviceObject.name is nan or deviceObject.name.upper() is "OK":
                     device = Device(
                         name="OK",
                         device_type=DeviceType.objects.get(model=deviceObject.devicetype),
