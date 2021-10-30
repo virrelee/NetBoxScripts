@@ -25,7 +25,7 @@ class CpDevicesFromFile(Script):
         def slugify(slugish):
             while True:
                 slugname= slugish
-                randslug = str(randint(0,1000))
+                randslug = str(randint(0,100000))
                 slugname+=randslug
                 if Device.objects.filter(asset_tag=slugname).exists() == False:
                     break
