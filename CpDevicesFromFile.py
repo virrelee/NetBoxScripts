@@ -188,7 +188,7 @@ class CpDevicesFromFile(Script):
                 if manufacturersObject.name is None:
                     return
 
-                elif Site.objects.filter(name=manufacturersObject.name).exists():
+                elif Manufacturer.objects.filter(name=manufacturersObject.name).exists():
                     return
                 else:
                     manufacturers = Manufacturer(
