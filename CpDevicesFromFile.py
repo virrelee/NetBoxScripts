@@ -313,7 +313,7 @@ class CpDevicesFromFile(Script):
 
                     
                     if deviceObject.rack is not nan:
-                        device.rack=Rack.objects.filter(site=deviceObject.site).get(name=deviceObject.name).id
+                        device.rack=Rack.objects.filter(site=deviceObject.site).get(name=deviceObject.rack).id
 
                     if deviceObject.status is not nan:
                         device.status=DeviceStatusChoices.STATUS_ACTIVE
