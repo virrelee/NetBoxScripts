@@ -286,8 +286,8 @@ class CpDevicesFromFile(Script):
                 elif deviceObject.name is None:
                     return
 
-                elif Device.objects.filter(name=deviceObject.name).exists():
-                    return
+                #elif Device.objects.filter(name=deviceObject.name).exists():
+                    #return
 
                 else:
                     device = Device(
@@ -337,8 +337,8 @@ class CpDevicesFromFile(Script):
                     if deviceObject.tenant is not nan:
                         device.tenant=Tenant.objects.get(name=deviceObject.tenant)
 
-                    #if deviceObject.tags is not nan:
-                        #device.tags=Tag.objects.get(name=deviceObject.tags)
+                    if deviceObject.tags is not nan:
+                        device.tags=Tag.objects.get(name=deviceObject.tags)
                     
 
                         
