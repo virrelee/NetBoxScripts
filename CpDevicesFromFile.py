@@ -23,9 +23,14 @@ class CpDevicesFromFile(Script):
         df = pd.read_excel(excel_file, sheet_name="Switchar")
 
         def slugify(slugish):
-            slugname= slugish
-            randslug = str(randint(0,10000))
-            slugname+=randslug
+            while True:
+                slugname= slugish
+                randslug = str(randint(0,1000))
+                slugname+=randslug
+                if Device.objects.filter(slug=randslug).exists():
+                    pass
+                else:
+                    break
             return slugname
         
 
