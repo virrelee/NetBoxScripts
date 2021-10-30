@@ -1,7 +1,7 @@
 
 import numpy
 from dcim.models import Device,DeviceType,DeviceRole,Region,Site,Rack,Manufacturer
-from dcim.choices import SiteStatusChoices, RackStatusChoices
+from dcim.choices import SiteStatusChoices, RackStatusChoices, DeviceStatusChoices
 from tenancy.models import Tenant
 from django.core.exceptions import ObjectDoesNotExist
 import pandas as pd
@@ -256,6 +256,42 @@ class CpDevicesFromFile(Script):
                 return deviceTypeObject.model
 
 
+
+
+
+            def CreateDevice(deviceObject):
+                if deviceObject.name is nan:
+                    return
+
+                if deviceObject.name is None:
+                    return
+
+                elif Device.objects.filter(name=deviceObject.name).exists():
+                    return
+
+                else:
+                    device = Device(
+                        name=deviceObject.name,
+                        device_role=DeviceRole.objects.get(name=deviceObject.devicerole),
+                        tags=Tag.objects.get(name=deviceObject.tags),
+                        manufacturer=Manufacturer.objects.get(name=deviceObject.manufacturer),
+                        device_type=DeviceType.objects.get(model=deviceObject.devicetype),
+                        serial=deviceObject.serial,
+                        asset_tag=deviceObject.serial,
+                        region=Region.objects.get(name=deviceObject.region),
+                        site=Site.objects.get(name=deviceObject.site),
+                        rack=Rack.objects.get(name=deviceObject.rack),
+                        status=DeviceStatusChoices.STATUS_ACTIVE,
+                        tenant=Tenant.objects.get(name=deviceObject.tenant)
+
+                        
+                    )
+
+                self.log_success(f"Created Device {deviceObject.name}")
+                device.save()
+                return deviceObject.name
+
+
         class RegionTemplate():
             def __init__(self,name):
                 self.name=name
@@ -308,7 +344,20 @@ class CpDevicesFromFile(Script):
             def __init__(self,row):
                 self.name=row
 
-        
+        class DeviceTemplate():
+            def __init__(self,row):
+                self.name=row["hostname"]
+                self.devicerole=row["Licens typ"]
+                self.tags=[row["SLA Nivå"],row["Lösningstid"]]
+                self.manufacturer=row["Fabrikat"]
+                self.devicetype=row["Hårdvara"]
+                self.serial=row["S/N"]
+                self.asset_tag=row["S/N"]
+                self.region=row["Ort"]
+                self.site=row["Fastighet"]
+                self.rack=row["Ställ"]
+                self.status=None
+                self.tenant=row["Förvaltning"]
 
         RegionList=set()
         TenantList=set()
@@ -318,6 +367,7 @@ class CpDevicesFromFile(Script):
         ManufacturersList=set()
         DeviceRoleList=set()
         DeviceTypeList=set()
+        DeviceList=set()
         df = df.replace(r'^\s*$', "default", regex=True)
         for i in range(3):
         
@@ -356,6 +406,14 @@ class CpDevicesFromFile(Script):
                     SiteList.add(str(SiteOutput))
                     RackList.add(str(RackOutput))
                     DeviceTypeList.add(str(DeviceTypeOutput))
+
+                if i == 2:
+                    deviceObject= DeviceTemplate(row)
+
+                    DeviceOutput = CreateInventory.CreateDevice(deviceObject)
+
+                    DeviceList.add(str(DeviceOutput))
+
                 
                 
                 
@@ -375,6 +433,8 @@ class CpDevicesFromFile(Script):
         ManufacturersList.remove("None")
         DeviceRoleList.remove("None")
         DeviceTypeList.remove("None")
+        DeviceList.remove("None")
+
 
 
 
@@ -409,6 +469,8 @@ class CpDevicesFromFile(Script):
         DeviceRole: {",".join(DeviceRoleList)}
 
         DeviceType: {",".join(DeviceTypeList)}
+
+        Devices: {",".join(DeviceList)}
 
 
         """
