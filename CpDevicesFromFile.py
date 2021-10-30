@@ -247,7 +247,7 @@ class CpDevicesFromFile(Script):
                 else:
                     devicetype = DeviceType(
                         model=deviceTypeObject.model,
-                        #slug= deviceTypeObject.model,
+                        slug= slugify(deviceTypeObject.name).lower(),
                         manufacturer= deviceTypeObject.manufacturer
                     )
 
@@ -297,8 +297,8 @@ class CpDevicesFromFile(Script):
         
         class DeviceTypeTemplate():
             def __init__(self,row_model,row_manufacturer):
-                self.model=row
-                self.manufacturer=row
+                self.model=row_model
+                self.manufacturer=row_manufacturer
 
         class ManufacturersTemplate():
             def __init__(self,row):
