@@ -266,11 +266,17 @@ class CpDevicesFromFile(Script):
                         device_type=DeviceType.objects.get(model=deviceObject.devicetype),
                         device_role=DeviceRole.objects.get(name="Unknown"),
                         site=Site.objects.get(name="Inventory"),
-                        status=DeviceStatusChoices.STATUS_INVENTORY
+                        status=DeviceStatusChoices.STATUS_INVENTORY,
+                        serial=deviceObject.serial,
+                        asset_tag=deviceObject.serial
+                        
                     )
+                    self.log_success(f"Created Device {device.name} boyeah")
+                    device.save()
+                    return device.name
                     
 
-                if deviceObject.name is None:
+                elif deviceObject.name is None:
                     return
 
                 elif Device.objects.filter(name=deviceObject.name).exists():
