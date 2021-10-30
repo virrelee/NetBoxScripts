@@ -348,7 +348,7 @@ class CpDevicesFromFile(Script):
             def __init__(self,row):
                 self.name=row["hostname"]
                 self.devicerole=row["Licens typ"]
-                self.tags=[row["SLA Nivå"],row["Lösningstid"]]
+                self.tags=row["SLA Nivå"]
                 self.manufacturer=row["Fabrikat"]
                 self.devicetype=row["Hårdvara"]
                 self.serial=row["SN"]
