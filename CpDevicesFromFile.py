@@ -277,8 +277,8 @@ class CpDevicesFromFile(Script):
 
                 else:
                     device = Device(
-                        name=deviceObject.name,
-                        tags=Tag.objects.get(name=deviceObject.tags))
+                        name=deviceObject.name)
+                        
                     if deviceObject.devicerole is not nan:
                         device.device_role=DeviceRole.objects.get(name=deviceObject.devicerole)
                     else:
@@ -303,6 +303,8 @@ class CpDevicesFromFile(Script):
                         device.status=DeviceStatusChoices.STATUS_ACTIVE
                     if deviceObject.tenant is not nan:
                         device.tenant=Tenant.objects.get(name=deviceObject.tenant)
+                    if deviceObject.tags is not nan:
+                        device.tags=Tag.objects.get(name=deviceObject.tags)
                     
 
                         
