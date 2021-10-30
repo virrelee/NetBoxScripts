@@ -196,6 +196,8 @@ class CpDevicesFromFile(Script):
                         slug= slugify(manufacturersObject.name).lower()
                     )
 
+                self.log_success(f"Created New Site {manufacturersObject.name}")
+                manufacturers.save()
 
 
         class RegionTemplate():
