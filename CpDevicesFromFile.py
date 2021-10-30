@@ -274,7 +274,9 @@ class CpDevicesFromFile(Script):
                     if deviceObject.asset_tag is not nan:
 
                         device.asset_tag=deviceObject.serial
-                        
+                    else:
+                        device.asset_tag=slugify(deviceObject.manufacturer)
+
                     self.log_success(f"Created Device {device.name}")
                     device.save()
                     return device.name
@@ -306,6 +308,8 @@ class CpDevicesFromFile(Script):
 
                     if deviceObject.asset_tag is not nan:
                         device.asset_tag=deviceObject.serial
+                    else:
+                        device.asset_tag=slugify(deviceObject.manufacturer)
 
                     if deviceObject.region is not nan:
                         device.region=Region.objects.get(name=deviceObject.region)
