@@ -1,6 +1,6 @@
 
 import numpy
-from dcim.models import Device,DeviceType,DeviceRole,Region,Site,Rack
+from dcim.models import Device,DeviceType,DeviceRole,Region,Site,Rack,Manufacturer
 from dcim.choices import SiteStatusChoices, RackStatusChoices
 from tenancy.models import Tenant
 from django.core.exceptions import ObjectDoesNotExist
@@ -182,14 +182,20 @@ class CpDevicesFromFile(Script):
 
 
             def CreateManufacturers(manufacturersObject):
-                if siteObject.name is nan:
+                if manufacturersObject.name is nan:
                     return
 
-                if siteObject.name is None:
+                if manufacturersObject.name is None:
                     return
 
-                elif Site.objects.filter(name=siteObject.name).exists():
+                elif Site.objects.filter(name=manufacturersObject.name).exists():
                     return
+                else:
+                    manufacturers = Manufacturer(
+                        name=manufacturersObject.name,
+                        slug= slugify(manufacturersObject.name).lower()
+                    )
+
 
 
         class RegionTemplate():
@@ -235,8 +241,9 @@ class CpDevicesFromFile(Script):
             def __init__(self,row):
                 self.name=row
 
-        class Manufacturures():
-            pass
+        class Manufacturers():
+            def __init__(self,row):
+                self.name=row
 
         
 
@@ -256,18 +263,19 @@ class CpDevicesFromFile(Script):
                     RegionObject = RegionTemplate(row[12])
                     TenantObject = TenantTemplate(row[10])
                     tagsObject = TagsTemplate(row[4],row[5])
-                    manufactururesObject= Manufacturures(row["Fabrikat"])
+                    manufacturersObject= Manufacturers(row["Fabrikat"])
                     
                 
                     regionOutput = CreateInventory.CreateRegion(RegionObject)
                     tenantOutput =  CreateInventory.CreateTenant(TenantObject)
                     tagsOutput = CreateInventory.CreateTags(tagsObject)
-                    manufactururesOutput = CreateInventory.CreateManu
+                    manufacturersOutput = CreateInventory.CreateManufacturers(manufacturersObject)
                 
                 
                     RegionList.add(str(regionOutput))
                     TenantList.add(str(tenantOutput))
                     TagsList.add(str(tagsOutput))
+                    ManufacturersList.add(str(manufacturersOutput))
                 
                 if i == 1:
                     siteObject = SiteTemplate(row)
@@ -294,6 +302,7 @@ class CpDevicesFromFile(Script):
         TagsList.remove("None")
         SiteList.remove("None")
         RackList.remove("None")
+        ManufacturersList.remove("None")
             
 
 
@@ -323,6 +332,8 @@ class CpDevicesFromFile(Script):
         Site: {",".join(SiteList)}
 
         Racks: {",".join(RackList)}
+
+        Manufacturers: {",".join(ManufacturersList)}
 
 
         """
