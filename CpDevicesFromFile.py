@@ -268,9 +268,13 @@ class CpDevicesFromFile(Script):
                         site=Site.objects.get(name="Inventory"),
                         status=DeviceStatusChoices.STATUS_INVENTORY,
                         serial=deviceObject.serial,
-                        asset_tag=deviceObject.serial
+                        
                         
                     )
+                    if deviceObject.asset_tag is not nan:
+
+                        device.asset_tag=deviceObject.serial
+                        
                     self.log_success(f"Created Device {device.name}")
                     device.save()
                     return device.name
