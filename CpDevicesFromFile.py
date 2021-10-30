@@ -286,6 +286,8 @@ class CpDevicesFromFile(Script):
                         device.region=Region.objects.get(name=deviceObject.region)
                     if deviceObject.site is not nan:
                         device.site=Site.objects.get(name=deviceObject.site)
+                    else:
+                        device.site=Site.objects.get(name="Unknown")
                     if deviceObject.rack is not nan:
                         device.rack=Rack.objects.get(name=deviceObject.rack)
                     if deviceObject.status is not nan:
