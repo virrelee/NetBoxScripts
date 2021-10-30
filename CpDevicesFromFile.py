@@ -235,25 +235,25 @@ class CpDevicesFromFile(Script):
 
 
             def CreateDeviceType(deviceTypeObject):
-                if deviceTypeObject.name is nan:
+                if deviceTypeObject.model is nan:
                     return
 
-                if deviceTypeObject.name is None:
+                if deviceTypeObject.model is None:
                     return
 
-                elif DeviceType.objects.filter(name=deviceTypeObject.name).exists():
+                elif DeviceType.objects.filter(name=deviceTypeObject.model).exists():
                     return
 
                 else:
                     devicetype = DeviceType(
-                        model=deviceTypeObject.name,
-                        slug= slugify(deviceTypeObject.name).lower(),
+                        model=deviceTypeObject.model,
+                        slug= slugify(deviceTypeObject.model).lower(),
                         manufacturer= deviceTypeObject.manufacturer
                     )
 
-                self.log_success(f"Created DeviceType {deviceTypeObject.name}")
+                self.log_success(f"Created DeviceType {deviceTypeObject.model}")
                 devicetype.save()
-                return deviceTypeObject.name
+                return deviceTypeObject.model
 
 
         class RegionTemplate():
