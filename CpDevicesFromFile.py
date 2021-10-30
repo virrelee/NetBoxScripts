@@ -305,7 +305,7 @@ class CpDevicesFromFile(Script):
                     TenantObject = TenantTemplate(row[10])
                     tagsObject = TagsTemplate(row[4],row[5])
                     manufacturersObject= ManufacturersTemplate(row["Fabrikat"])
-                    deviceRoleObject = DeviceRoleTemplate(row["Licens Typ"])
+                    deviceRoleObject = DeviceRoleTemplate(row["Licens typ"])
                 
                     regionOutput = CreateInventory.CreateRegion(RegionObject)
                     tenantOutput =  CreateInventory.CreateTenant(TenantObject)
