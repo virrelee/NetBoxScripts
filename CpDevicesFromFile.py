@@ -271,7 +271,7 @@ class CpDevicesFromFile(Script):
                         asset_tag=deviceObject.serial
                         
                     )
-                    self.log_success(f"Created Device {device.name} boyeah")
+                    self.log_success(f"Created Device {device.name}")
                     device.save()
                     return device.name
                     
@@ -311,8 +311,9 @@ class CpDevicesFromFile(Script):
                     else:
                         device.site=Site.objects.get(name="Unknown")
 
+                    
                     if deviceObject.rack is not nan:
-                        device.rack=Rack.objects.get(name=deviceObject.rack)
+                        device.rack=Rack.objects.filter(site=deviceObject.site).filter(name=deviceObject.name)
 
                     if deviceObject.status is not nan:
                         device.status=DeviceStatusChoices.STATUS_ACTIVE
