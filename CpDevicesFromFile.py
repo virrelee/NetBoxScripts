@@ -265,7 +265,8 @@ class CpDevicesFromFile(Script):
                         name="OK",
                         device_type=DeviceType.objects.get(model=deviceObject.devicetype),
                         device_role=DeviceRole.objects.get(name="Unknown"),
-                        site=Site.objects.get(name="Inventory")
+                        site=Site.objects.get(name="Inventory"),
+                        status=DeviceStatusChoices.STATUS_INVENTORY
                     )
                     
 
@@ -384,8 +385,8 @@ class CpDevicesFromFile(Script):
                 self.tags=row["SLA Nivå"]
                 self.manufacturer=row["Fabrikat"]
                 self.devicetype=row["Hårdvara"]
-                self.serial=row["SN"]
-                self.asset_tag=row["SN"]
+                self.serial=str(row["SN"])
+                self.asset_tag=str(row["SN"])
                 self.region=row["Ort"]
                 self.site=row["Fastighet"]
                 self.rack=row["Ställ"]
