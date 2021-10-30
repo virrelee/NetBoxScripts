@@ -273,19 +273,29 @@ class CpDevicesFromFile(Script):
                     device = Device(
                         name=deviceObject.name,
                         device_role=DeviceRole.objects.get(name=deviceObject.devicerole),
-                        tags=Tag.objects.get(name=deviceObject.tags),
-                        manufacturer=Manufacturer.objects.get(name=deviceObject.manufacturer),
-                        device_type=DeviceType.objects.get(model=deviceObject.devicetype),
-                        serial=deviceObject.serial,
-                        asset_tag=deviceObject.serial,
-                        region=Region.objects.get(name=deviceObject.region),
-                        site=Site.objects.get(name=deviceObject.site),
-                        rack=Rack.objects.get(name=deviceObject.rack),
-                        status=DeviceStatusChoices.STATUS_ACTIVE,
-                        tenant=Tenant.objects.get(name=deviceObject.tenant)
+                        tags=Tag.objects.get(name=deviceObject.tags))
+                    if deviceObject.manufacturer is not nan:
+                        device.manufacturer=Manufacturer.objects.get(name=deviceObject.manufacturer)
+                    if deviceObject.devicetype is not nan:    
+                        device.device_type=DeviceType.objects.get(model=deviceObject.devicetype)
+                    if deviceObject.serial is not nan:
+                        device.serial=deviceObject.serial
+                    if deviceObject.asset_tag is not nan:
+                        device.asset_tag=deviceObject.serial
+                    if deviceObject.region is not nan:
+                        device.region=Region.objects.get(name=deviceObject.region)
+                    if deviceObject.site is not nan:
+                        device.site=Site.objects.get(name=deviceObject.site)
+                    if deviceObject.rack is not nan:
+                        device.rack=Rack.objects.get(name=deviceObject.rack)
+                    if deviceObject.status is not nan:
+                        device.status=DeviceStatusChoices.STATUS_ACTIVE
+                    if deviceObject.tenant is not nan:
+                        device.tenant=Tenant.objects.get(name=deviceObject.tenant)
+                    
 
                         
-                    )
+                    
 
                 self.log_success(f"Created Device {deviceObject.name}")
                 device.save()
