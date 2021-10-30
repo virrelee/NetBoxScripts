@@ -286,13 +286,15 @@ class CpDevicesFromFile(Script):
                 elif deviceObject.name is None:
                     return
 
-                elif Device.objects.filter(name=deviceObject.name).exists():
-                    dubbeldevice= Device.objects.get(name=deviceObject.name)
-                    dubbeldevice.name=f"{dubbeldevice.name}-2"
-                    dubbeldevice.save()
-                    pass
 
                 else:
+                    
+                    if Device.objects.filter(name=deviceObject.name).exists():
+                        dubbeldevice= Device.objects.get(name=deviceObject.name)
+                        dubbeldevice.name=f"{dubbeldevice.name}-2"
+                        dubbeldevice.save()
+                    
+
                     device = Device(
                         name=deviceObject.name)
                         
