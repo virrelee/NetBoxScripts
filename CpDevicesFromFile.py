@@ -309,7 +309,7 @@ class CpDevicesFromFile(Script):
                     if deviceObject.site is not nan:
                         device.site=Site.objects.get(name=deviceObject.site)    
                     else:
-                        device.site=Rack.objects.get(name=device.rack).site
+                        device.site=Site.objects.get(name="Unknown")
 
                     
                     if deviceObject.rack is not nan:
