@@ -288,7 +288,7 @@ class CpDevicesFromFile(Script):
 
                 elif Device.objects.filter(name=deviceObject.name).exists():
                     dubbeldevice= Device.objects.filter(name=deviceObject.name)
-                    dubbeldevice.name=f"{Dubbeldevice.name}-2"
+                    dubbeldevice.name=f"{dubbeldevice.name}-2"
                     dubbeldevice.save()
 
                 else:
