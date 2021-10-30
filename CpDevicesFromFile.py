@@ -263,7 +263,7 @@ class CpDevicesFromFile(Script):
 
 
             def CreateDevice(deviceObject):
-                if deviceObject.name is nan:
+                if deviceObject.name is nan or deviceObject.name.upper() is "OK":
                     device = Device(
                         name="OK",
                         device_type=DeviceType.objects.get(model=deviceObject.devicetype),
@@ -288,12 +288,15 @@ class CpDevicesFromFile(Script):
 
 
                 else:
-                    
-                    if Device.objects.filter(name=deviceObject.name).exists():
-                        dubbeldevice= Device.objects.get(name=deviceObject.name)
-                        dubbeldevice.name=f"{dubbeldevice.name}-2"
-                        dubbeldevice.save()
-                    
+                    num=1
+                    while True:
+                        if Device.objects.filter(name=deviceObject.name).exists() or Device.objects.filter(name=f"{deviceObject.name}-{num}").exists():
+                            dubbeldevice= Device.objects.get(name=deviceObject.name)
+                            dubbeldevice.name=f"{dubbeldevice.name}-{num}"
+                            dubbeldevice.save()
+                            num+=1
+                        else: 
+                            break
 
                     device = Device(
                         name=deviceObject.name)
