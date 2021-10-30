@@ -27,7 +27,7 @@ class CpDevicesFromFile(Script):
                 slugname= slugish
                 randslug = str(randint(0,1000))
                 slugname+=randslug
-                if Device.objects.filter(slug=slugname).exists():
+                if Device.objects.filter(asset_tag=slugname).exists():
                     pass
                 else:
                     break
