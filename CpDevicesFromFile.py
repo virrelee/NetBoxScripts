@@ -248,7 +248,7 @@ class CpDevicesFromFile(Script):
                     devicetype = DeviceType(
                         model=deviceTypeObject.model,
                         slug= slugify(deviceTypeObject.model).lower(),
-                        manufacturer= deviceTypeObject.manufacturer
+                        manufacturer= Manufacturer.Objects.get(name=deviceTypeObject.manufacturer)
                     )
 
                 self.log_success(f"Created DeviceType {deviceTypeObject.model}")
