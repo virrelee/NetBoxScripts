@@ -336,9 +336,9 @@ class CpDevicesFromFile(Script):
 
                     if deviceObject.tenant is not nan:
                         if Device.objects.filter(name=deviceObject.name).exists():
-                            device.tenant=Tenant.objects.get(name="Unknown")
+                            pass
                         else:
-                             device.tenant=Tenant.objects.get(name=deviceObject.tenant)
+                            device.tenant=Tenant.objects.get(name=deviceObject.tenant)
 
                     #if deviceObject.tags is not nan:
                         #device.tags=Tag.objects.get(name=deviceObject.tags)
