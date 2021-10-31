@@ -493,7 +493,7 @@ class CpDevicesFromFile(Script):
         ManufacturersList.remove("None")
         DeviceRoleList.remove("None")
         DeviceTypeList.remove("None")
-        DeviceList.remove("None")
+        #DeviceList.remove("None")
 
 
 
