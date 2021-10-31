@@ -291,7 +291,7 @@ class CpDevicesFromFile(Script):
                     
                     if Device.objects.filter(name=deviceObject.name).exists():
                         dubbeldevice= Device.objects.get(name=deviceObject.name)
-                        dubbeldevice.name=f"{dubbeldevice.name}-1"
+                        dubbeldevice.tenant=f"Unknown"
                         dubbeldevice.save()
             
                     device = Device(
@@ -341,8 +341,8 @@ class CpDevicesFromFile(Script):
                     if deviceObject.tenant is not nan:
                         device.tenant=Tenant.objects.get(name=deviceObject.tenant)
 
-                    if deviceObject.tags is not nan:
-                        device.tags=Tag.objects.get(name=deviceObject.tags)
+                    #if deviceObject.tags is not nan:
+                        #device.tags=Tag.objects.get(name=deviceObject.tags)
                     
 
                         
