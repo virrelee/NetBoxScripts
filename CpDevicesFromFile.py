@@ -289,11 +289,7 @@ class CpDevicesFromFile(Script):
 
                 else:
                     
-                    if Device.objects.filter(name=deviceObject.name).exists():
-                        dubbeldevice= Device.objects.get(name=deviceObject.name)
-                        dubbeldevice.tenant=Tenant.objects.get(name="Unknown")
-                        dubbeldevice.save()
-            
+                    
                     device = Device(
                         name=deviceObject.name)
                         
@@ -339,7 +335,10 @@ class CpDevicesFromFile(Script):
                         device.status=DeviceStatusChoices.STATUS_ACTIVE
 
                     if deviceObject.tenant is not nan:
-                        device.tenant=Tenant.objects.get(name=deviceObject.tenant)
+                        if Device.objects.filter(name=deviceObject.name).exists():
+                            device.tenant=Tenant.objects.get(name="Unknown")
+                        else:
+                             device.tenant=Tenant.objects.get(name=deviceObject.tenant)
 
                     #if deviceObject.tags is not nan:
                         #device.tags=Tag.objects.get(name=deviceObject.tags)
