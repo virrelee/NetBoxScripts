@@ -407,7 +407,7 @@ class CpDevicesFromFile(Script):
         class DeviceTemplate():
             def __init__(self,row):
                 self.name=row["hostname"]
-                #self.devicerole=row["Licens typ"]
+                self.devicerole=None#row["Licens typ"]
                 self.tags=row["SLA Nivå"]
                 self.manufacturer=row["Fabrikat"]
                 self.devicetype=row["Hårdvara"]
