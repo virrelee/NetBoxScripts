@@ -20,7 +20,7 @@ class CpDevicesFromFile(Script):
 
     def run(self,data,commit):
         excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE15.xlsx"
-        df = pd.read_excel(excel_file, sheet_name="Switchar")
+        df = pd.read_excel(excel_file, sheet_name="Accesspunkter")
 
         def slugify(slugish):
             while True:
@@ -407,7 +407,7 @@ class CpDevicesFromFile(Script):
         class DeviceTemplate():
             def __init__(self,row):
                 self.name=row["hostname"]
-                self.devicerole=row["Licens typ"]
+                #self.devicerole=row["Licens typ"]
                 self.tags=row["SLA Nivå"]
                 self.manufacturer=row["Fabrikat"]
                 self.devicetype=row["Hårdvara"]
@@ -429,7 +429,7 @@ class CpDevicesFromFile(Script):
         DeviceTypeList=set()
         DeviceList=set()
         df = df.replace(r'^\s*$', "default", regex=True)
-        for i in range(3):
+        for i in range(2,3):
         
         
 
