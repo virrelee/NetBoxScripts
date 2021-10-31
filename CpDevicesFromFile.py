@@ -291,7 +291,7 @@ class CpDevicesFromFile(Script):
                     
                     if Device.objects.filter(name=deviceObject.name).exists():
                         dubbeldevice= Device.objects.get(name=deviceObject.name)
-                        dubbeldevice.tenant=f"Unknown"
+                        dubbeldevice.tenant=Tenant.objects.get(name="Unknown")
                         dubbeldevice.save()
             
                     device = Device(
