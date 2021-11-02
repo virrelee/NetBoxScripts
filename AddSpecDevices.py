@@ -3,7 +3,7 @@ from dcim.models import Device,DeviceType,DeviceRole,Region,Site,Rack,Manufactur
 from dcim.choices import SiteStatusChoices, RackStatusChoices, DeviceStatusChoices, InterfaceTypeChoices, InterfaceModeChoices
 from tenancy.models import Tenant
 from ipam.models import Prefix,IPAddress
-from ipam.choices import PrefixStatusChoice, IPAddressStatusChoices
+from ipam.choices import PrefixStatusChoices, IPAddressStatusChoices
 from django.core.exceptions import ObjectDoesNotExist
 import pandas as pd
 from numpy import nan,NaN
@@ -114,7 +114,7 @@ class InventoryFromSite(Script):
         def CreatePrefix(self,row):
             prefix = Prefix(
                 prefix=data["Prefix"],
-                status=PrefixStatusChoice.STATUS_ACTIVE,
+                status=PrefixStatusChoices.STATUS_ACTIVE,
                 region=Site.objects.get(site=data["Site"]).region,
                 site=Site.objects.get(site=data["Site"]),
                 tenant=Site.objects.get(site=data["Site"]).tenant
