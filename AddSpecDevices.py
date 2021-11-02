@@ -3,12 +3,13 @@ from dcim.models import Device,DeviceType,DeviceRole,Region,Site,Rack,Manufactur
 from dcim.choices import SiteStatusChoices, RackStatusChoices, DeviceStatusChoices, InterfaceTypeChoices, InterfaceModeChoices
 from tenancy.models import Tenant
 from ipam.models import Prefix,IPAddress
-from ipam.choices import PrefixStatusChoice
+from ipam.choices import PrefixStatusChoice, IPAddressStatusChoices
 from django.core.exceptions import ObjectDoesNotExist
 import pandas as pd
 from numpy import nan,NaN
 from extras.scripts import *
 from extras.models import Tag
+from django.contrib.contenttypes.models import ContentType
 
 
 
@@ -50,6 +51,7 @@ class InventoryFromSite(Script):
 
     
     def run(self,data,commit):
+    
 
         def CreateSite(self,row):
             site = Site(
@@ -60,6 +62,7 @@ class InventoryFromSite(Script):
                 physical_address=data["Physical Address"]
             )
             site.save()
+            self.log_success(f"Created new Site: {site}")
 
         def CreateRack(self,row):
             rack = Rack(
@@ -72,7 +75,8 @@ class InventoryFromSite(Script):
                 comments=row["Rum"]
             )
             rack.save()
-        
+            self.log_success(f"Created new Rack: {rack}")
+
         def CreateSwitches(self,row):
             device = Device(
                 name=row["Hostname"],
@@ -91,11 +95,12 @@ class InventoryFromSite(Script):
 
             )
             device.save()
-            return device.name
+            self.log_success(f"Created new Switch: {device}")
         
-        def CreateInterface(self,row,deviceName):
+
+        def CreateInterface(self,row):
             interface= Interface(
-                device=deviceName,
+                device=Device.objects.get(name=row["Hostname"]),
                 name="MGMT",
                 type=InterfaceTypeChoices.TYPE_VIRTUAL,
                 mac=row["MAC"],
@@ -104,7 +109,8 @@ class InventoryFromSite(Script):
 
             )
             interface.save()
-        
+            self.log_success(f"Created new Interface: {interface}")
+
         def CreatePrefix(self,row):
             prefix = Prefix(
                 prefix=data["Prefix"],
@@ -113,9 +119,34 @@ class InventoryFromSite(Script):
                 site=Site.objects.get(site=data["Site"]),
                 tenant=Site.objects.get(site=data["Site"]).tenant
             )
+
             prefix.save()
+            self.log_success(f"Created new Prefix: {prefix}")
 
         def CreateIpAddress(self,row):
+            assigned_device=Device.objects.get(name=row["Hostname"])
+            ipAddress= IPAddress(
+                address=row["IPAdress"],
+                status=IPAddressStatusChoices.STATUS_ACTIVE,
+                tenant=Site.objects.get(site=data["Site"]).tenant,
+                device=Device.objects.get(name=row["Hostname"]),
+                assigned_object_type=ContentType.objects.get(model="interface"),
+                assigned_object_id=Interface.objects.get(device=assigned_device.id).id
 
+            )
+            ipAddress.save()
+            self.log_success(f"Created new IPAddress: {ipAddress}")
+        
+        excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE15.xlsx"
+        df = pd.read_excel(excel_file, sheet_name="Accesspunkter")
+        
+        for index,row in df.iterrows():
+            CreateSite(row)
+            CreateRack(row)
+            CreateSwitches(row)
+            CreateInterface(row)
+            CreatePrefix(row)
+            CreateIpAddress(row)
     
 
+    
