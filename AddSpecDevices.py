@@ -86,7 +86,7 @@ class InventoryFromSite(Script):
                 device_type=DeviceType.objects.get(model=row["Hårdvara"]),
                 serial=row["SN"],
                 asset_tag=row["SN"],
-                region=Site.objects.get(name=data["Site"]).region,
+                #region=Site.objects.get(name=data["Site"]).region,
                 #sitegroup=
                 site=Site.objects.get(name=data["Site"]),
                 rack=Rack.objects.get(name=row["Ställ"]),
