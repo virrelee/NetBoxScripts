@@ -81,7 +81,7 @@ class InventoryFromSite(Script):
             device = Device(
                 name=row["Hostname"],
                 device_role=DeviceRole.objects.get(name=row["Licens typ"]),
-                tags=TaggedItem.objects.get(name="Standard"),
+                tags=TaggedItem.objects.get(tag="Standard"),
                 #manufacturer= Manufacturer.objects.get(name=row["Fabrikat"]),
                 device_type=DeviceType.objects.get(model=row["Hårdvara"]),
                 serial=row["SN"],
