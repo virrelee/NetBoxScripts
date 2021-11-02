@@ -59,7 +59,7 @@ class InventoryFromSite(Script):
                 region=Region.objects.get(name=data["Region"]),
                 facility=row["Krafts Anläggningsadress"],
                 tenant=Tenant.objects.get(name=data["Tenant"]),
-                physical_address=data["Physical Address"]
+                physical_address=data["Physical_Address"]
             )
             site.save()
             self.log_success(f"Created new Site: {site}")
