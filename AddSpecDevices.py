@@ -142,11 +142,18 @@ class InventoryFromSite(Script):
         
         for index,row in df.iterrows():
             if str(data["Site"]) == str(row["Fastighet"]):
-                CreateSite(self,row)
-                CreateRack(self,row)
+                if not Site.objects.filter(name=data["Site"]).exists():
+                    CreateSite(self,row)
+                if not Site.objects.filter(name=data["Site"].rack.exist():
+                    CreateRack(self,row)
+                
                 CreateSwitches(self,row)
+                
                 CreateInterface(self,row)
-                CreatePrefix(self,row)
+                
+                if not Prefix.objects.get(prefix=data["Prefix"])
+                    CreatePrefix(self,row)
+                
                 CreateIpAddress(self,row)
     
 
