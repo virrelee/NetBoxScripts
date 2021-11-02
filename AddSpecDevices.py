@@ -86,9 +86,9 @@ class InventoryFromSite(Script):
                 device_type=DeviceType.objects.get(model=row["Hårdvara"]),
                 serial=row["SN"],
                 asset_tag=row["SN"],
-                region=Site.objects.get(site=data["Site"]).region,
+                region=Site.objects.get(name=data["Site"]).region,
                 #sitegroup=
-                site=Site.objects.get(site=data["Site"]),
+                site=Site.objects.get(name=data["Site"]),
                 rack=Rack.Objects.get(name=row["Ställ"]),
                 status=DeviceStatusChoices.STATUS_ACTIVE,
                 tenant=Site.objects.get(name=data["Site"]).tenant
@@ -115,9 +115,9 @@ class InventoryFromSite(Script):
             prefix = Prefix(
                 prefix=data["Prefix"],
                 status=PrefixStatusChoices.STATUS_ACTIVE,
-                region=Site.objects.get(site=data["Site"]).region,
-                site=Site.objects.get(site=data["Site"]),
-                tenant=Site.objects.get(site=data["Site"]).tenant
+                region=Site.objects.get(name=data["Site"]).region,
+                site=Site.objects.get(name=data["Site"]),
+                tenant=Site.objects.get(name=data["Site"]).tenant
             )
 
             prefix.save()
@@ -128,7 +128,7 @@ class InventoryFromSite(Script):
             ipAddress= IPAddress(
                 address=row["IPAdress"],
                 status=IPAddressStatusChoices.STATUS_ACTIVE,
-                tenant=Site.objects.get(site=data["Site"]).tenant,
+                tenant=Site.objects.get(name=data["Site"]).tenant,
                 device=Device.objects.get(name=row["Hostname"]),
                 assigned_object_type=ContentType.objects.get(model="interface"),
                 assigned_object_id=Interface.objects.get(device=assigned_device.id).id
