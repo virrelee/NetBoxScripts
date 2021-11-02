@@ -21,7 +21,7 @@ class InventoryFromSite(Script):
 
     # Variables That has to be put in
 
-    SiteName = StringVar(
+    Site = StringVar(
         description="New Site",
         required=True
     )
@@ -55,7 +55,7 @@ class InventoryFromSite(Script):
 
         def CreateSite(self,row):
             site = Site(
-                name=data["SiteName"],
+                name=data["Site"],
                 region=Region.objects.get(name=data["Region"]),
                 facility=row["Krafts Anläggning"],
                 tenant=Tenant.objects.get(name=data["Tenant"]),
@@ -103,7 +103,7 @@ class InventoryFromSite(Script):
                 device=Device.objects.get(name=row["Hostname"]),
                 name="MGMT",
                 type=InterfaceTypeChoices.TYPE_VIRTUAL,
-                mac=row["MAC"],
+                #mac=row["MAC"],
                 mode=InterfaceModeChoices.MODE_TAGGED,
 
 
