@@ -141,7 +141,10 @@ class InventoryFromSite(Script):
         df = pd.read_excel(excel_file, sheet_name="Switchar")
         
         for index,row in df.iterrows():
+            if index == 1092:
+                break
             if str(data["Site"]) == str(row["Fastighet"]):
+
                 if not Site.objects.filter(name=data["Site"]).exists():
                     CreateSite(self,row)
                 if not Rack.objects.filter(name=row["Ställ"]).exists():
