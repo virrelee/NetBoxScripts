@@ -138,10 +138,10 @@ class InventoryFromSite(Script):
             self.log_success(f"Created new IPAddress: {ipAddress}")
         
         excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE15.xlsx"
-        df = pd.read_excel(excel_file, sheet_name="Accesspunkter")
+        df = pd.read_excel(excel_file, sheet_name="Switchar")
         
         for index,row in df.iterrows():
-            if "Sara Kulturhus" == str(row["Fastighet"]):
+            if str(data["Site"]) == str(row["Fastighet"]):
                 CreateSite(self,row)
                 CreateRack(self,row)
                 CreateSwitches(self,row)
