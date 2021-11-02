@@ -141,7 +141,7 @@ class InventoryFromSite(Script):
         df = pd.read_excel(excel_file, sheet_name="Switchar")
         
         for index,row in df.iterrows():
-            if index == 1092:
+            if index == 3000:
                 break
             if str(data["Site"]) == str(row["Fastighet"]):
 
