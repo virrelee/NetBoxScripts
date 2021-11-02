@@ -129,7 +129,7 @@ class InventoryFromSite(Script):
                 address=row["IPAdress"],
                 status=IPAddressStatusChoices.STATUS_ACTIVE,
                 tenant=Site.objects.get(name=data["Site"]).tenant,
-                device=Device.objects.get(name=row["Hostname"]),
+                #device=Device.objects.get(name=row["Hostname"]),
                 assigned_object_type=ContentType.objects.get(model="interface"),
                 assigned_object_id=Interface.objects.get(device=assigned_device.id).id
 
