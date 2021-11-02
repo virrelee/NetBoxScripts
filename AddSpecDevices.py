@@ -89,7 +89,7 @@ class InventoryFromSite(Script):
                 region=Site.objects.get(name=data["Site"]).region,
                 #sitegroup=
                 site=Site.objects.get(name=data["Site"]),
-                rack=Rack.Objects.get(name=row["Ställ"]),
+                rack=Rack.objects.get(name=row["Ställ"]),
                 status=DeviceStatusChoices.STATUS_ACTIVE,
                 tenant=Site.objects.get(name=data["Site"]).tenant
 
