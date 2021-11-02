@@ -141,12 +141,13 @@ class InventoryFromSite(Script):
         df = pd.read_excel(excel_file, sheet_name="Accesspunkter")
         
         for index,row in df.iterrows():
-            CreateSite(row)
-            CreateRack(row)
-            CreateSwitches(row)
-            CreateInterface(row)
-            CreatePrefix(row)
-            CreateIpAddress(row)
+            if row["Fastighet"] == data["Site"]:
+                CreateSite(self,row)
+                CreateRack(self,row)
+                CreateSwitches(self,row)
+                CreateInterface(self,row)
+                CreatePrefix(self,row)
+                CreateIpAddress(self,row)
     
 
     
