@@ -39,7 +39,7 @@ class InventoryFromSite(Script):
         required=True
     )
 
-    Physical_Adress = StringVar(
+    Physical_Address = StringVar(
         description="Address for the Site",
         required=True
     )
