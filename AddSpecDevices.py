@@ -57,7 +57,7 @@ class InventoryFromSite(Script):
             site = Site(
                 name=data["Site"],
                 region=Region.objects.get(name=data["Region"]),
-                facility=row["Krafts Anläggning"],
+                facility=row["Krafts Anläggningsadress"],
                 tenant=Tenant.objects.get(name=data["Tenant"]),
                 physical_address=data["Physical Address"]
             )
