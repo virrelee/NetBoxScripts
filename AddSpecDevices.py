@@ -115,7 +115,7 @@ class InventoryFromSite(Script):
             prefix = Prefix(
                 prefix=data["Prefix"],
                 status=PrefixStatusChoices.STATUS_ACTIVE,
-                region=Site.objects.get(name=data["Site"]).region,
+                #region=Site.objects.get(name=data["Site"]).region,
                 site=Site.objects.get(name=data["Site"]),
                 tenant=Site.objects.get(name=data["Site"]).tenant
             )
