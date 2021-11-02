@@ -144,7 +144,7 @@ class InventoryFromSite(Script):
             if str(data["Site"]) == str(row["Fastighet"]):
                 if not Site.objects.filter(name=data["Site"]).exists():
                     CreateSite(self,row)
-                if not Site.objects.filter(name=data["Site"]).racks.exist():
+                if not Rack.objects.filter(name=row["Ställ"]).exist():
                     CreateRack(self,row)
                 
                 CreateSwitches(self,row)
