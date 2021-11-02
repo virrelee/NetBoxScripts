@@ -151,7 +151,7 @@ class InventoryFromSite(Script):
                 
                 CreateInterface(self,row)
                 
-                if not Prefix.objects.get(prefix=data["Prefix"]).exists():
+                if not Prefix.objects.filter(prefix=data["Prefix"]).exists():
                     CreatePrefix(self,row)
                 
                 CreateIpAddress(self,row)
