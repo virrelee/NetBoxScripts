@@ -141,7 +141,7 @@ class InventoryFromSite(Script):
             else:
                 ipa = IPAddress.objects.get(address=row["IPAdress"])
                 ipAddress.save()
-                assigned_device.primary_ip4=ipa
+                assigned_device.primary_ip4=ipAddress
                 assigned_device.save()
             self.log_success(f"Created new IPAddress: {ipAddress}")
 
