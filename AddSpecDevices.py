@@ -57,7 +57,7 @@ class InventoryFromSite(Script):
             site = Site(
                 name=data["Site"],
                 region=Region.objects.get(name=data["Region"]),
-                facility=row["Krafts Anläggningsadress"],
+                facility=row["Krafts Anläggning"],
                 tenant=Tenant.objects.get(name=data["Tenant"]),
                 physical_address=data["Physical_Address"]
             )
@@ -68,7 +68,7 @@ class InventoryFromSite(Script):
             rack = Rack(
                 name=row["Ställ"],
                 site=Site.objects.get(name=data["Site"]),
-                facility_id=row["Krafts Anläggningsadress"],
+                facility_id=row["Krafts Anläggning"],
                 tenant=Tenant.objects.get(name=data["Tenant"]),
                 status=RackStatusChoices.STATUS_ACTIVE,
                 asset_tag=f"{row['Ställ']}-{data['Site']}",
@@ -134,9 +134,12 @@ class InventoryFromSite(Script):
                 assigned_object_id=Interface.objects.get(device=assigned_device.id).id
 
             )
+            assigned_device.primary_ip4=IPAddress.objects.get(address=row["IPAddress"])
+            assigned_device.save()
             ipAddress.save()
             self.log_success(f"Created new IPAddress: {ipAddress}")
         
+
         excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE15.xlsx"
         df = pd.read_excel(excel_file, sheet_name="Switchar")
         
