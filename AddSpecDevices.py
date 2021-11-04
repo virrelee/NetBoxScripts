@@ -134,11 +134,12 @@ class InventoryFromSite(Script):
                 assigned_object_id=Interface.objects.get(device=assigned_device.id).id
 
             )
+
+            ipAddress.save()
             assigned_device.primary_ip4=IPAddress.objects.get(address=row["IPAdress"])
             assigned_device.save()
-            ipAddress.save()
             self.log_success(f"Created new IPAddress: {ipAddress}")
-        
+
 
         excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE15.xlsx"
         df = pd.read_excel(excel_file, sheet_name="Switchar")
