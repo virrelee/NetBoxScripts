@@ -152,8 +152,8 @@ class InventoryFromSite(Script):
                     CreateSite(self,row)
                 if not Rack.objects.filter(name=row["Ställ"]).exists():
                     CreateRack(self,row)
-                
-                CreateSwitches(self,row)
+                if not Device.objects.filter(name=row["Hostname"]).exists():
+                    CreateSwitches(self,row)
                 
                 CreateInterface(self,row)
                 
