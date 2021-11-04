@@ -136,7 +136,7 @@ class InventoryFromSite(Script):
             )
             if not IPAddress.objects.filter(address=row["IPAdress"]).exists():
                 ipAddress.save()
-                assigned_device.primary_ip4=IPAddress.objects.filter(address=row["IPAdress"])
+                assigned_device.primary_ip4=IPAddress.objects.get(address=row["IPAdress"])
                 assigned_device.save()
             else:
                 ipa = IPAddress.objects.get(address=row["IPAdress"])
