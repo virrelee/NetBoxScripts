@@ -153,15 +153,15 @@ class InventoryFromSite(Script):
                     CreateSite(self,row)
                 if not Rack.objects.filter(name=row["Ställ"]).exists():
                     CreateRack(self,row)
-                if not Device.objects.filter(name=row["Hostname"]).exists():
-                    CreateSwitches(self,row)
-                
-                CreateInterface(self,row)
-                
                 if not Prefix.objects.filter(prefix=data["Prefix"]).exists():
                     CreatePrefix(self,row)
-                
-                CreateIpAddress(self,row)
+                if not Device.objects.get(name=row["Hostname"]).primary_ip4 == row["IPAdress"]:
+                    CreateSwitches(self,row)
+                    CreateInterface(self,row)
+                    CreateIpAddress(self,row)            
+
+
+               
     
 
     
