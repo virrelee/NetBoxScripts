@@ -155,7 +155,7 @@ class InventoryFromSite(Script):
                     CreateRack(self,row)
                 if not Prefix.objects.filter(prefix=data["Prefix"]).exists():
                     CreatePrefix(self,row)
-                if Device.objects.get(name=row["Hostname"]).exists():
+                if Device.objects.filter(name=row["Hostname"]).exists():
                     if Device.objects.get(name=row["Hostname"]).primary_ip4 == row["IPAdress"]:
                         continue
 
