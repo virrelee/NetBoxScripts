@@ -184,12 +184,14 @@ class InventoryFromSite(Script):
                         CreateInterface(self,row)
                         CreateIpAddress(self,row)
                 else:
-                
-                    if Device.objects.filter(name=row["Hostname"]).exists():
-                        if Device.objects.get(name=row["Hostname"]).asset_tag == row["SN"]:
-                            continue
-                        CreateAccesspoints(self,row)
-                        CreateInterface(self,row)
+                    if index == 3000:
+                        break
+                    if str(data["Site"]) == str(row["Fastighet"]):
+                        if Device.objects.filter(name=row["Hostname"]).exists():
+                            if Device.objects.get(name=row["Hostname"]).asset_tag == row["SN"]:
+                                continue
+                            CreateAccesspoints(self,row)
+                            CreateInterface(self,row)
 
 
 
