@@ -189,7 +189,7 @@ class InventoryFromSite(Script):
                         if Device.objects.get(name=row["Hostname"]).asset_tag == row["SN"]:
                             continue
                         CreateAccesspoints(self,row)
-                        CreateInterface
+                        CreateInterface(self,row)
 
 
 
