@@ -84,12 +84,9 @@ class InventoryFromSite(Script):
                 name=row["Hostname"],
                 device_role=DeviceRole.objects.get(name=row["Licens typ"]),
                 #tags=TaggedItem.objects.get(tag="Standard"),
-                #manufacturer= Manufacturer.objects.get(name=row["Fabrikat"]),
                 device_type=DeviceType.objects.get(model=row["Hårdvara"]),
                 serial=row["SN"],
                 asset_tag=row["SN"],
-                #region=Site.objects.get(name=data["Site"]).region,
-                #sitegroup=
                 site=Site.objects.get(name=data["Site"]),
                 rack=Rack.objects.get(name=row["Ställ"]),
                 status=DeviceStatusChoices.STATUS_ACTIVE,
@@ -99,7 +96,19 @@ class InventoryFromSite(Script):
             device.save()
             self.log_success(f"Created new Switch: {device}")
         
-
+        def CreateAccesspoints():
+            device = Device(
+            name=row["Hostname"],
+            device_role=DeviceRole.objects.get(name=row["AccessPoint"]),
+            device_type=DeviceType.objects.get(name=row["Hårdvara"]),
+            serial=row["SN"],
+            asset_tag=row["SN"],
+            site=Site.objects.get(name=data["Site"]),
+            status=DeviceStatusChoices.STATUS_ACTIVE,
+            tenant=Site.objects.get(name=data["Site"]).tenant
+            )
+            device.save()
+            self.log_success(f"Created new AccessPoint: {device}")
         def CreateInterface(self,row):
             interface= Interface(
                 device=Device.objects.get(name=row["Hostname"]),
@@ -117,7 +126,6 @@ class InventoryFromSite(Script):
             prefix = Prefix(
                 prefix=data["Prefix"],
                 status=PrefixStatusChoices.STATUS_ACTIVE,
-                #region=Site.objects.get(name=data["Site"]).region,
                 site=Site.objects.get(name=data["Site"]),
                 tenant=Site.objects.get(name=data["Site"]).tenant
             )
@@ -131,9 +139,9 @@ class InventoryFromSite(Script):
                 address=row["IPAdress"],
                 status=IPAddressStatusChoices.STATUS_ACTIVE,
                 tenant=Site.objects.get(name=data["Site"]).tenant,
-                #device=Device.objects.get(name=row["Hostname"]),
                 assigned_object_type=ContentType.objects.get(model="interface"),
                 assigned_object_id=Interface.objects.get(device=assigned_device.id).id
+            
 
             )
             if not IPAddress.objects.filter(address=row["IPAdress"]).exists():
@@ -147,32 +155,41 @@ class InventoryFromSite(Script):
                 assigned_device.save()
             self.log_success(f"Created new IPAddress: {ipAddress}")
 
-
-        excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE15.xlsx"
-        df = pd.read_excel(excel_file, sheet_name="Switchar")
+        sheet = ["Switchar","Accesspunkter"]
         
-        for index,row in df.iterrows():
-            if index == 3000:
-                break
-            if str(data["Site"]) == str(row["Fastighet"]):
+        for i in sheet:
+            excel_file = "/opt/netbox/netbox/scripts/Apparatlista_SE15.xlsx"
+            df = pd.read_excel(excel_file, sheet_name=i)
+            
+            for index,row in df.iterrows():
+                if i == "Switchar":
+                    if index == 3000:
+                        break
+                    if str(data["Site"]) == str(row["Fastighet"]):
 
-                if not Site.objects.filter(name=data["Site"]).exists():
-                    CreateSite(self,row)
-                if not Rack.objects.filter(name=row["Ställ"]).exists():
-                    CreateRack(self,row)
-                if not Prefix.objects.filter(prefix=data["Prefix"]).exists():
-                    CreatePrefix(self,row)
+                        if not Site.objects.filter(name=data["Site"]).exists():
+                            CreateSite(self,row)
+                        if not Rack.objects.filter(name=row["Ställ"]).exists():
+                            CreateRack(self,row)
+                        if not Prefix.objects.filter(prefix=data["Prefix"]).exists():
+                            CreatePrefix(self,row)
 
-                if Device.objects.filter(name=row["Hostname"]).exists():
-                    if Device.objects.get(name=row["Hostname"]).asset_tag == row["SN"]:
-                        continue
-                    if Device.objects.get(name=row["Hostname"]).primary_ip4 == row["IPAdress"]:
-                        continue
-
-               
-                CreateSwitches(self,row)
-                CreateInterface(self,row)
-                CreateIpAddress(self,row)
+                        if Device.objects.filter(name=row["Hostname"]).exists():
+                            if Device.objects.get(name=row["Hostname"]).asset_tag == row["SN"]:
+                                continue
+                            if Device.objects.get(name=row["Hostname"]).primary_ip4 == row["IPAdress"]:
+                                continue
+                    
+                        CreateSwitches(self,row)
+                        CreateInterface(self,row)
+                        CreateIpAddress(self,row)
+                else:
+                
+                    if Device.objects.filter(name=row["Hostname"]).exists():
+                        if Device.objects.get(name=row["Hostname"]).asset_tag == row["SN"]:
+                            continue
+                        CreateAccesspoints(self,row)
+                        CreateInterface
 
 
 
