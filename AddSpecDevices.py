@@ -190,8 +190,8 @@ class InventoryFromSite(Script):
                         if Device.objects.filter(name=row["Hostname"]).exists():
                             if Device.objects.get(name=row["Hostname"]).asset_tag == row["SN"]:
                                 continue
-                            CreateAccesspoints(self,row)
-                            CreateInterface(self,row)
+                        CreateAccesspoints(self,row)
+                        CreateInterface(self,row)
 
 
 
