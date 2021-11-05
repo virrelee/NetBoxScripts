@@ -100,7 +100,7 @@ class InventoryFromSite(Script):
             device = Device(
             name=row["Hostname"],
             device_role=DeviceRole.objects.get(name="AccessPoint"),
-            device_type=DeviceType.objects.get(name=row["Hårdvara"]),
+            device_type=DeviceType.objects.get(model=row["Hårdvara"]),
             serial=row["SN"],
             asset_tag=row["SN"],
             site=Site.objects.get(name=data["Site"]),
