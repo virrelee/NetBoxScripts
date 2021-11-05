@@ -70,7 +70,7 @@ class InventoryFromSite(Script):
             rack = Rack(
                 name=row["Ställ"],
                 site=Site.objects.get(name=data["Site"]),
-                facility_id=row["Krafts Anläggning"],
+                facility_id=row["Krafts anläggning"],
                 tenant=Tenant.objects.get(name=data["Tenant"]),
                 status=RackStatusChoices.STATUS_ACTIVE,
                 asset_tag=f"{row['Ställ']}-{data['Site']}",
