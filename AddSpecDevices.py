@@ -96,7 +96,7 @@ class InventoryFromSite(Script):
             device.save()
             self.log_success(f"Created new Switch: {device}")
         
-        def CreateAccesspoints():
+        def CreateAccesspoints(self,row):
             device = Device(
             name=row["Hostname"],
             device_role=DeviceRole.objects.get(name=row["AccessPoint"]),
