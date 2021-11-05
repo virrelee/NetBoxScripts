@@ -57,7 +57,7 @@ class InventoryFromSite(Script):
         def CreateSite(self,row):
             site = Site(
                 name=data["Site"],
-                slug=slugify(name),
+                slug=slugify(data["Site"]),
                 region=Region.objects.get(name=data["Region"]),
                 facility=row["Krafts anläggning"],
                 tenant=Tenant.objects.get(name=data["Tenant"]),
