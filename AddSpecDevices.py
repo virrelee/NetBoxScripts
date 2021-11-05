@@ -74,7 +74,7 @@ class InventoryFromSite(Script):
                 tenant=Tenant.objects.get(name=data["Tenant"]),
                 status=RackStatusChoices.STATUS_ACTIVE,
                 asset_tag=f"{row['Ställ']}-{data['Site']}",
-                comments=row["Rum"]
+                comments=F"{row['Hus']}-{row['Rum']}"
             )
             rack.save()
             self.log_success(f"Created new Rack: {rack}")
