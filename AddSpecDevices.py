@@ -99,7 +99,7 @@ class InventoryFromSite(Script):
         def CreateAccesspoints(self,row):
             device = Device(
             name=row["Hostname"],
-            device_role=DeviceRole.objects.get(name=row["AccessPoint"]),
+            device_role=DeviceRole.objects.get(name="AccessPoint"),
             device_type=DeviceType.objects.get(name=row["Hårdvara"]),
             serial=row["SN"],
             asset_tag=row["SN"],
