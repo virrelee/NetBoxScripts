@@ -10,6 +10,7 @@ from numpy import nan,NaN
 from extras.scripts import *
 from extras.models import Tag, TaggedItem
 from django.contrib.contenttypes.models import ContentType
+from django.utils.text import slugify
 
 
 
@@ -56,6 +57,7 @@ class InventoryFromSite(Script):
         def CreateSite(self,row):
             site = Site(
                 name=data["Site"],
+                slug=slugify(name),
                 region=Region.objects.get(name=data["Region"]),
                 facility=row["Krafts anläggning"],
                 tenant=Tenant.objects.get(name=data["Tenant"]),
